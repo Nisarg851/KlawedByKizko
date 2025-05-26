@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-neutral-800 dark:text-neutral-100 bg-neutral-50 dark:bg-secondary-900;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer base {
+  :root {
+    /* Light Theme (Complementary to the new dark theme) */
+    --background: 0 0% 100%; /* White */
+    --foreground: 260 5% 15%; /* Dark, almost black text */
+    
+    --card: 0 0% 97%; /* Very light grey for cards */
+    --card-foreground: 260 5% 15%;
+    
+    --popover: 0 0% 97%;
+    --popover-foreground: 260 5% 15%;
+    
+    --primary: 30 85% 55%; /* Warm Orange */
+    --primary-foreground: 0 0% 100%; /* White text */
+    
+    --secondary: 30 80% 90%; /* Light orange/cream for secondary buttons */
+    --secondary-foreground: 30 70% 30%; /* Darker orange text */
+    
+    --muted: 0 0% 94%; /* Lighter grey for muted backgrounds */
+    --muted-foreground: 0 0% 45%; /* Darker grey for text on muted */
+    
+    --accent: 340 75% 60%; /* Rose/Pink */
+    --accent-foreground: 0 0% 100%; /* White text */
+    
+    --destructive: 0 70% 50%; 
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 88%; /* Light grey border */
+    --input: 0 0% 92%; /* Light grey input background */
+    --ring: 30 85% 60%; /* Orange for focus ring */
+
+    --chart-1: hsl(var(--primary));
+    --chart-2: hsl(var(--accent));
+    --chart-3: 45 90% 50%; /* Gold/Yellow as a distinct chart color */
+    --chart-4: 30 85% 70%; /* Lighter Orange */
+    --chart-5: 340 75% 75%; /* Lighter Rose */
+    --radius: 0.5rem;
+
+    /* Sidebar specific theme variables (light theme) */
+    --sidebar-background: 0 0% 98%; 
+    --sidebar-foreground: 260 5% 15%;
+    --sidebar-primary: hsl(var(--primary)); 
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: hsl(var(--accent)); 
+    --sidebar-accent-foreground: hsl(var(--accent-foreground));
+    --sidebar-border: 0 0% 85%;
+    --sidebar-ring: hsl(var(--ring));
+  }
+
+  .dark {
+    /* Dark Theme (Inspired by the image) */
+    --background: 260 5% 5%; /* Very dark, almost black, slight purple tint */
+    --foreground: 0 0% 96%; /* Off-white for text */
+    
+    --card: 260 5% 8%; /* Slightly lighter than bg for cards */
+    --card-foreground: 0 0% 96%;
+    
+    --popover: 260 5% 7%;
+    --popover-foreground: 0 0% 96%;
+    
+    --primary: 30 90% 60%; /* Warm, vibrant orange */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    
+    --secondary: 40 80% 95%; /* Light Cream/Off-white (for "Book Session" button style) */
+    --secondary-foreground: 30 70% 25%; /* Dark Orange/Brown text for light button */
+    
+    --muted: 260 5% 12%; /* Dark grey for less emphasis areas */
+    --muted-foreground: 0 0% 65%; /* Lighter grey for text on muted */
+    
+    --accent: 340 70% 65%; /* Rose/Pink */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
+    
+    --destructive: 0 62% 50%; 
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 260 5% 10%; /* Dark subtle border */
+    --input: 260 5% 9%; /* Dark input background */
+    --ring: 30 90% 65%; /* Slightly lighter orange for focus ring */
+
+    --chart-1: hsl(var(--primary));
+    --chart-2: hsl(var(--accent));
+    --chart-3: 45 95% 55%; /* Gold/Yellow as a distinct chart color */
+    --chart-4: 30 90% 70%; /* Lighter Orange */
+    --chart-5: 340 70% 75%; /* Lighter Rose */
+
+    /* Sidebar specific theme variables for dark mode */
+    --sidebar-background: 260 5% 7%; 
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: hsl(var(--primary));
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: hsl(var(--accent));
+    --sidebar-accent-foreground: hsl(var(--accent-foreground));
+    --sidebar-border: 260 5% 12%;
+    --sidebar-ring: hsl(var(--ring));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-md font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-500 text-white hover:bg-secondary-600 dark:bg-secondary-600 dark:hover:bg-secondary-700;
+  }
+  
+  .btn-accent {
+    @apply bg-accent-500 text-white hover:bg-accent-600 dark:bg-accent-600 dark:hover:bg-accent-700;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-primary-900/30;
+  }
+  
+  .input {
+    @apply w-full px-4 py-3 border border-neutral-200 dark:border-secondary-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-600 bg-white dark:bg-secondary-800 text-neutral-800 dark:text-neutral-100;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-secondary-800 rounded-lg shadow-md overflow-hidden transition-all duration-300;
+  }
+  
+  .section {
+    @apply py-16 md:py-24;
+  }
+  
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: theme('colors.primary.500');
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.calendar-container .react-calendar {
+  @apply w-full max-w-full bg-white dark:bg-secondary-800 border border-neutral-200 dark:border-secondary-700 rounded-lg font-sans;
+}
+
+.calendar-container .react-calendar button {
+  @apply m-0 border-0 outline-none;
+}
+
+.calendar-container .react-calendar__tile {
+  @apply max-w-full p-3 bg-transparent text-center text-sm;
+}
+
+.calendar-container .react-calendar__tile--active {
+  @apply bg-primary-500 dark:bg-primary-600 text-white rounded;
+}
+
+.calendar-container .react-calendar__tile--now {
+  @apply bg-primary-100 dark:bg-primary-900 rounded;
+}
+
+.calendar-container .react-calendar__tile:enabled:hover,
+.calendar-container .react-calendar__tile:enabled:focus {
+  @apply bg-primary-100 dark:bg-primary-900 rounded;
+}
+
+.calendar-container .react-calendar__tile--disabled {
+  @apply bg-neutral-100 dark:bg-secondary-700 text-neutral-400 dark:text-neutral-500;
+}
