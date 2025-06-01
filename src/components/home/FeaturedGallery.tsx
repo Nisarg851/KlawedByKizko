@@ -115,7 +115,7 @@ function FeaturedGallery() {
               </div>
               <div className="gallery-overlay absolute inset-0 bg-secondary-900/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
                 <Link 
-                  to="/gallery" 
+                  to={`/gallery?tier=${item.tier}`} 
                   className="btn btn-primary"
                 >
                   View Details

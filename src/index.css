@@ -195,17 +195,17 @@
   @apply max-w-full p-3 bg-transparent text-center text-sm;
 }
 
-.calendar-container .react-calendar__tile--active {
-  @apply bg-primary-500 dark:bg-primary-600 text-white rounded;
-}
-
 .calendar-container .react-calendar__tile--now {
   @apply bg-primary-100 dark:bg-primary-900 rounded;
 }
 
+.calendar-container .react-calendar__tile--active {
+  @apply bg-primary-400 dark:bg-primary-600 text-white rounded;
+}
+
 .calendar-container .react-calendar__tile:enabled:hover,
 .calendar-container .react-calendar__tile:enabled:focus {
-  @apply bg-primary-100 dark:bg-primary-900 rounded;
+  @apply bg-primary-200 dark:bg-primary-900 rounded;
 }
 
 .calendar-container .react-calendar__tile--disabled {

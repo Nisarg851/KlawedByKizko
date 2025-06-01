@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Mail, MapPin, Award } from 'lucide-react';
+import { Instagram, Mail, MapPin, Award, Sparkles } from 'lucide-react';
 
 function ArtistPage() {
   useEffect(() => {
@@ -41,7 +41,7 @@ function ArtistPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/klawedbykiz/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn btn-primary"
@@ -65,7 +65,11 @@ function ArtistPage() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="text-primary-500" size={24} />
-                <span className="text-secondary-800 font-medium">Los Angeles, CA</span>
+                <span className="text-secondary-800 font-medium">Mississauga, ON</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="text-yellow-400" size={24} />
+                <span className="text-secondary-800 font-medium">Meet me at VCT Masters Toronto on June 14/15 + June 20-22</span>
               </div>
             </div>
           </motion.div>
@@ -125,7 +129,7 @@ function ArtistPage() {
           
           <div className="text-center mt-8">
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/klawedbykiz/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors"

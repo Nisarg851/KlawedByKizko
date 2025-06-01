@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Calendar from 'react-calendar';
 import { useDropzone } from 'react-dropzone';
 import { Check, AlertCircle, Upload, X } from 'lucide-react';
 import { GalleryTier, NailShape, NailLength } from '../../types';
 import 'react-calendar/dist/Calendar.css';
+import supabase from '../../utils/Supabase';
+import NewsletterPopup from '../home/NewsletterPopup';
 
 interface FormData {
   name: string;
@@ -15,12 +17,28 @@ interface FormData {
   nailLength: NailLength;
   date: Date;
   time: string;
-  inspirationPhotos: File[];
+  inspirationPhotos: (File|string)[];
   notes: string;
 }
 
+interface AppointmentModel {
+  name: string;
+  email: string;
+  phone: string;
+  service_tier: GalleryTier;
+  nail_shape: NailShape;
+  nail_length: NailLength;
+  appointment_datetime_slot: Date;
+  duration: number;
+  inspiration_photos: (File|string)[];
+  notes: string;
+}
+
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_API_ENV;
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+
 function BookingForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const defualtFormData: FormData = {
     name: '',
     email: '',
     phone: '',
@@ -31,11 +49,97 @@ function BookingForm() {
     time: '10:00',
     inspirationPhotos: [],
     notes: '',
-  });
+  }
+
+  const [formData, setFormData] = useState<FormData>(defualtFormData);
 
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [unavailableDateTimeSlots, setUnavailableDateTimeSlots] = useState({});
+
+  useEffect(()=>{
+    const fetchBookedSlots = async () => {
+      const today = new Date();
+      const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
+
+      // maxDate: End of day, 3 months from now
+      const maxDate = new Date(today);
+      maxDate.setMonth(maxDate.getMonth() + 3);
+      maxDate.setHours(23, 59, 59, 999); // Set to the very end of the day for the max month
+
+      const { data, error } = await supabase
+        .from('appointments')
+        .select('appointment_datetime_slot, duration') 
+        .gte('appointment_datetime_slot', minDate.toISOString()) 
+        .lte('appointment_datetime_slot', maxDate.toISOString())
+        .order('appointment_datetime_slot', { ascending: true });
+
+      if(error){
+        console.log(error);
+        setErrors({...errors, formSubmission: "failure"});
+        return;
+      }
+
+      const timeslots : {[date: string]: { time: string; duration: number; }[]} = {}; 
+
+      data.forEach((appointmentSlot) => {
+        const appointment = new Date(appointmentSlot.appointment_datetime_slot);
+        const date = `${appointment.getDate()}-${appointment.getMonth()}-${appointment.getFullYear()}`;
+
+        const hours = String(appointment.getHours()).padStart(2, '0');
+        const minutes = String(appointment.getMinutes()).padStart(2, '0');
+
+        if(timeslots[date]==undefined)
+          timeslots[date] = [];
+
+        timeslots[date].push({"time": `${hours}:${minutes}`, "duration": appointmentSlot.duration});
+      });
+
+      // console.log("Timeslot", timeslots);
+
+      setUnavailableDateTimeSlots(timeslots as never);
+    }
+
+    fetchBookedSlots();
+    
+  },[errors]);
+
+  const saveData = async (newFormData: FormData) => {
+    // console.log("Saving Data...")
+    // console.log("Form data: ", newFormData, " submitted ✅");
+
+    const [hours, minutes] = newFormData.time.split(':').map(Number);
+    newFormData.date.setHours(hours, minutes, 0, 0);
+
+    const appointmentModel: AppointmentModel = {
+      name: newFormData.name,
+      email: newFormData.email,
+      phone: newFormData.phone,
+      service_tier: newFormData.serviceTier,       
+      nail_shape: newFormData.nailShape,           
+      nail_length: newFormData.nailLength,         
+      appointment_datetime_slot: newFormData.date,    
+      duration: 60,
+      inspiration_photos: newFormData.inspirationPhotos, 
+      notes: newFormData.notes,
+    };
+
+    const {error: supabaseError} = await supabase.from("appointments")
+                                      .insert([appointmentModel])
+                                      .select();
+
+    if(supabaseError){
+      console.log(supabaseError);
+      setErrors({...errors, formSubmission: "failure"});
+      return;
+    }
+
+    // console.log("Appointment booked!", data);
+    setSubmitted(true);
+    setErrors({...errors, formSubmission: "success"});
+  };
 
   // Dropzone for file uploads
   const { getRootProps, getInputProps } = useDropzone({
@@ -126,24 +230,112 @@ function BookingForm() {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // console.log("Handling Submit!!!");
     if (validateStep(step)) {
-      // Here you would typically send the data to the server
-      console.log(formData);
-      setSubmitted(true);
+      let uploadedImagePromises = [] as Promise<string>[];
+      if(formData.inspirationPhotos.length > 0){
+       uploadedImagePromises = formData.inspirationPhotos.map(async (photo) => {
+          const image = new FormData();
+          image.append("file", photo as Blob);
+          image.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string);
+          image.append("cloud_name", import.meta.env.VITE_CLOUDINARY_API_ENV as string);
+
+          let res = await fetch(CLOUDINARY_URL, {
+            method: "POST",
+            body: image
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error.message || `Cloudinary upload failed!`);
+          }
+          
+          res = await res.json();
+
+          // console.log(`Uploaded image ${index}: `, res.url);
+
+          return res.url;
+        });
+      }
+      
+      const results = await Promise.all(uploadedImagePromises);
+      const uploadedImageUrls = await results.filter(url => url!=null) as string[];
+
+      setFormData((prevFormData: FormData) => {
+        const newFormData = { ...prevFormData, inspirationPhotos: uploadedImageUrls};
+        saveData(newFormData);
+        return defualtFormData;
+      });
     }
+  };
+
+
+  // Available Booking time-slots
+  const generateTimeSlots = () => {
+    const selectedDate: string = `${formData.date.getDate()}-${formData.date.getMonth()}-${formData.date.getFullYear()}`;
+    const bookedTimeSlots: any = unavailableDateTimeSlots[selectedDate as never];
+
+    const bookedTimeSlotObj: any = {};
+    bookedTimeSlots?.forEach((timeSlot: { time: string; duration: number; }) => {
+      bookedTimeSlotObj[timeSlot.time] = timeSlot.duration
+    });
+
+    const slots = [];
+    const startTime = 10 * 60; // 10:00 AM in minutes
+    const endTime = 18 * 60;   // 6:00 PM in minutes (18:00)
+    const interval = 30;       // 30 minutes
+
+    for (let totalMinutes = startTime; totalMinutes <= endTime; totalMinutes += interval) {
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+
+      // Format for the value (e.g., "10:00", "10:30")
+      const value = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+      if(bookedTimeSlotObj[value] != undefined){
+        // console.log("found a booked slot", value, bookedTimeSlotObj[value]);
+        totalMinutes += (bookedTimeSlotObj[value] + 60 - interval);
+        
+        // remove the last 2 slots to free up 1hr before an appointment
+        slots.pop();
+        slots.pop();
+
+        continue;
+      }
+
+      // Format for the display (e.g., "10:00 AM", "10:30 AM", "1:00 PM")
+      let displayHours = hours;
+      let ampm = 'AM';
+      if (hours >= 12) {
+        ampm = 'PM';
+        if (hours > 12) {
+          displayHours = hours - 12;
+        }
+      }
+      if (hours === 0) { // Handle 12 AM (midnight)
+        displayHours = 12;
+      }
+      const display = `${String(displayHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${ampm}`;
+
+      slots.push(
+        <option key={value} value={value}>
+          {display}
+        </option>
+      );
+    }
+    return slots;
   };
 
   // Unavailable dates for the calendar (e.g., weekends and specific dates)
   const isDateUnavailable = (date: Date) => {
     const day = date.getDay();
-    const isWeekend = day === 0; // Sunday is unavailable
+    const isWeekend = (day === 0) || (day === 6); // Saturday and Sunday is unavailable
     
     // Example specific unavailable dates
     const unavailableDates = [
-      new Date(2025, 3, 15), // April 15, 2025
-      new Date(2025, 3, 16), // April 16, 2025
+      new Date(2025, 6, 15), // April 15, 2025
+      new Date(2025, 6, 16), // April 16, 2025
     ];
     
     const isSpecificUnavailableDate = unavailableDates.some(
@@ -236,6 +428,7 @@ function BookingForm() {
             </div>
           </motion.div>
         );
+
         
       case 2:
         return (
@@ -245,7 +438,7 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Service Preferences</h3>
+            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Service Choice</h3>
             
             <div className="space-y-4">
               <div>
@@ -316,6 +509,7 @@ function BookingForm() {
             </div>
           </motion.div>
         );
+
         
       case 3:
         return (
@@ -335,6 +529,11 @@ function BookingForm() {
                     onChange={(date) => setFormData({ ...formData, date: date as Date })}
                     value={formData.date}
                     minDate={new Date()}
+                    maxDate={(() => {
+                        const d = new Date();
+                        d.setMonth(d.getMonth() + 3);
+                        return d;
+                    })()}
                     tileDisabled={({ date }) => isDateUnavailable(date)}
                   />
                 </div>
@@ -344,23 +543,14 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="time" className="block text-neutral-700 mb-1">Preferred Time</label>
+                <label htmlFor="time" className="block text-neutral-700 mb-1">Available Time Slots</label>
                 <select
                   id="time"
                   name="time"
                   value={formData.time}
                   onChange={handleChange}
-                  className="input"
-                >
-                  <option value="10:00">10:00 AM</option>
-                  <option value="11:00">11:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="13:00">1:00 PM</option>
-                  <option value="14:00">2:00 PM</option>
-                  <option value="15:00">3:00 PM</option>
-                  <option value="16:00">4:00 PM</option>
-                  <option value="17:00">5:00 PM</option>
-                  <option value="18:00">6:00 PM</option>
+                  className="input">
+                    {generateTimeSlots()}
                 </select>
               </div>
             </div>
@@ -383,6 +573,7 @@ function BookingForm() {
             </div>
           </motion.div>
         );
+
         
       case 4:
         return (
@@ -422,7 +613,7 @@ function BookingForm() {
                     {formData.inspirationPhotos.map((file, index) => (
                       <div key={index} className="relative">
                         <img 
-                          src={URL.createObjectURL(file)} 
+                          src={URL.createObjectURL(file as Blob)} 
                           alt={`Inspiration ${index + 1}`} 
                           className="w-full h-24 object-cover rounded"
                         />
@@ -463,15 +654,100 @@ function BookingForm() {
               </button>
               <button
                 type="submit"
-                onClick={handleSubmit}
+                onClick={nextStep}
                 className="btn btn-primary"
               >
-                Submit Booking Request
+                Next Step
               </button>
             </div>
           </motion.div>
         );
-        
+
+      
+      case 5:
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Order Details</h3>
+            
+            <div>
+              <label className="block text-neutral-700 mb-1">Full Name</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.name}</p>
+
+              <label className="block text-neutral-700 mb-1">Email</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.email}</p>
+
+              <label className="block text-neutral-700 mb-1">Phone number</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.phone}</p>
+            </div>
+
+            <div>
+              <label className="block text-neutral-700 mb-1">Service Tier</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.serviceTier}</p>
+
+              <label className="block text-neutral-700 mb-1">Nail Shape</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.nailShape}</p>
+
+              <label className="block text-neutral-700 mb-1">Nail Length</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.nailLength}</p>
+            </div>
+
+            <div>
+              <label className="block text-neutral-700 mb-1">Date and Time</label>
+              <p className="text-sm text-neutral-500 mb-3">{formData.date.toDateString()} at {formData.time}</p>
+            </div>
+
+            <div>
+              {
+                formData.inspirationPhotos.length > 0 && (
+                <div>
+                  <label className="block text-neutral-700 mb-1">Inspiration Photos</label>
+                  <div className="mt-4 grid grid-cols-3 gap-3 mb-3">
+                    {formData.inspirationPhotos.map((file, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={URL.createObjectURL(file as Blob)}
+                          alt={`Inspiration ${index + 1}`}
+                          className="w-full h-48 object-cover rounded"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {
+                formData.notes!="" && (
+                  <div>
+                    <label className="block text-neutral-700 mb-1">Additional Notes</label>
+                    <p className="text-sm text-neutral-500 mb-3">{formData.notes}</p>
+                  </div>
+              )}
+            </div>
+
+            <div className="mt-8 flex justify-between">
+              <button
+                type="button"
+                onClick={prevStep}
+                className="btn btn-outline"
+              >
+                Previous Step
+              </button>
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+          </motion.div>
+        );
+
       default:
         return null;
     }
@@ -494,6 +770,9 @@ function BookingForm() {
           Thank you for your booking request. We'll review your preferred date and time and get back to you 
           within 24 hours to confirm your appointment.
         </p>
+        {
+          submitted && ( <NewsletterPopup />)
+        }
         <div className="mt-6">
           <button
             onClick={() => window.location.href = '/'}
@@ -510,7 +789,7 @@ function BookingForm() {
     <div className="card p-6 md:p-8">
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          {[1, 2, 3, 4].map((stepNumber) => (
+          {[1, 2, 3, 4, 5].map((stepNumber) => (
             <div 
               key={stepNumber}
               className="flex flex-col items-center"
@@ -528,16 +807,17 @@ function BookingForm() {
               </div>
               <div className="text-xs mt-1 text-neutral-500 hidden md:block">
                 {stepNumber === 1 && 'Information'}
-                {stepNumber === 2 && 'Preferences'}
+                {stepNumber === 2 && 'Service'}
                 {stepNumber === 3 && 'Date & Time'}
-                {stepNumber === 4 && 'Details'}
+                {stepNumber === 4 && 'Personalize'}
+                {stepNumber === 5 && 'Details'}
               </div>
             </div>
           ))}
         </div>
       </div>
       
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>{e.preventDefault();}}>
         {renderStep()}
       </form>
     </div>

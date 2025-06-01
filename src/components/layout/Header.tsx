@@ -37,7 +37,7 @@ function Header({ isAdmin = false }: HeaderProps) {
     }
   };
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/50 bg-transparent py-4`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/50 bg-transparent py-4`;
 
   return (
     <header className={headerClasses}>
@@ -54,7 +54,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               {
               isAdmin 
                 ? <span className="text-xl font-bold tracking-tight"><span className="text-accent">Kizko </span><span className="text-foreground">Admin</span></span>
-                : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-accent">Kizko</span></span>
+                : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-primary-500">Kizko</span></span>
               }
             {/* </span> */}
           </motion.div>
@@ -73,7 +73,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               <NavLink to="/admin/gallery" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Gallery
               </NavLink>
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
               <button 
                 onClick={handleLogout} 
                 className="btn btn-outline"
@@ -98,7 +98,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               <NavLink to="/inquiry" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Custom Design
               </NavLink>
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
               {currentUser?.isAdmin && (
                 <Link to="/admin" className="btn btn-primary">
                   Admin
@@ -110,7 +110,7 @@ function Header({ isAdmin = false }: HeaderProps) {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <button 
             className="text-secondary-800 dark:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}

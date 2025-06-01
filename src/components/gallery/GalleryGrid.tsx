@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { GalleryItem, GalleryTier } from '../../types';
+import { useSearchParams } from 'react-router-dom';
 
 // Sample gallery data
 const galleryData: GalleryItem[] = [
@@ -75,7 +76,13 @@ interface GalleryGridProps {
 }
 
 function GalleryGrid({ initialFilter = 'All' }: GalleryGridProps) {
-  const [filter, setFilter] = useState<GalleryTier | 'All'>(initialFilter);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tier = searchParams.get("tier") as GalleryTier ?? initialFilter;
+
+  console.log(tier);
+
+  const [filter, setFilter] = useState<GalleryTier | 'All'>(tier);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
   const filteredGallery = filter === 'All' 
