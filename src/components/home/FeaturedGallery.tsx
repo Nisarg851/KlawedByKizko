@@ -42,10 +42,10 @@ function FeaturedGallery() {
     },
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  // const item = {
+  //   hidden: { opacity: 0, y: 20 },
+  //   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  // };
 
   // Get color class based on tier
   const getTierColorClass = (tier: GalleryTier) => {
@@ -64,7 +64,7 @@ function FeaturedGallery() {
   };
 
   return (
-    <section className="section bg-neutral-50">
+    <section className="section bg-neutral-50 dark:bg-secondary-900">
       <div className="container">
         <div className="text-center mb-12">
           <motion.h2 
@@ -72,7 +72,7 @@ function FeaturedGallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-serif text-3xl md:text-4xl text-secondary-900 mb-4"
+            className="font-serif text-3xl md:text-4xl text-foreground mb-4"
           >
             Featured Designs
           </motion.h2>
@@ -97,7 +97,6 @@ function FeaturedGallery() {
           {featuredItems.map((item) => (
             <motion.div 
               key={item.id}
-              variants={item}
               className="gallery-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
             >
               <div className="aspect-square overflow-hidden">

@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 
 function Hero() {
+  const {theme} = useTheme();
+
   return (
-    <div className="relative min-h-[90vh] bg-white">
+    <div className="relative min-h-[90vh] bg-background">
       {/* Background Pattern */}
       {/* <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-white bg-cover bg-center"></div>
@@ -17,10 +20,10 @@ function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-neutral-900 font-semibold leading-tight mb-6">
-              KLAWED BY <Link to='/artist'><span className="text-primary-500 underline animate-pulse">KIZKO</span></Link>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground font-semibold leading-tight mb-6">
+              KLAWED BY <Link to='/artist'><span className="nav-link text-primary-500 animate-sparkle">KIZKO</span></Link>
             </h1>
-            <p className="text-neutral-900 text-lg mb-8 max-w-lg">
+            <p className="text-neutral-600 text-lg mb-8 max-w-lg">
               Elevate your style with custom nail designs that are as unique as you are. 
               From subtle elegance to bold statements, each creation is a work of art.
             </p>
@@ -28,7 +31,7 @@ function Hero() {
               <Link to="/booking" className="btn btn-primary bg-primary-500">
                 Book Now <ArrowRight size={18} />
               </Link>
-              <Link to="/gallery" className="btn btn-outline border-primary-500 text-primary-500 hover:bg-white/10">
+              <Link to="/gallery" className="btn border-2 border-primary-500 text-primary-500 hover:bg-foreground">
                 Explore Gallery
               </Link>
             </div>
@@ -68,9 +71,26 @@ function Hero() {
       </div>
       
       {/* Curved divider */}
-      <div className="absolute bg-white  bottom-0 left-0 right-0">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="fill-neutral-50">
-          <path d="M0,64L80,80C160,96,320,128,480,128C640,128,800,96,960,80C1120,64,1280,64,1360,64L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+      <div className="absolute bg-backgroud bottom-0 left-0 right-0">
+        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="h-[20%] fill-neutral-50 border-2 border-red-600">
+          <path fill="#0099ff" fill-opacity="1" d="M0,192L80,186.7C160,181,320,171,480,138.7C640,107,800,53,960,42.7C1120,32,1280,64,1360,80L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+        </svg> 
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L80,186.7C160,181,320,171,480,138.7C640,107,800,53,960,42.7C1120,32,1280,64,1360,80L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+        */}
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240">
+        {
+          theme == "light"
+          ? ( 
+              <path fill="#F8F7F7" fill-opacity="1" d="M0,160L80,176C160,192,320,224,480,234.7C640,245,800,235,960,229.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            )
+          : (
+              <path fill="#131214" fill-opacity="1" d="M0,160L80,176C160,192,320,224,480,234.7C640,245,800,235,960,229.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            )
+        }
+        {/* <path fill="#F8F7F7" fill-opacity="1" d="M0,128L80,106.7C160,85,320,43,480,42.7C640,43,800,85,960,112C1120,139,1280,149,1360,154.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path> */}
+         {/* <path fill="#F8F7F7" fill-opacity="1" d="M0,160L80,181.3C160,203,320,245,480,261.3C640,277,800,267,960,240C1120,213,1280,171,1360,149.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path> */}
+          {/* <path fill="#F8F7F7" fill-opacity="1" d="M0,192L80,186.7C160,181,320,171,480,138.7C640,107,800,53,960,42.7C1120,32,1280,64,1360,80L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path> */}
         </svg>
       </div>
     </div>

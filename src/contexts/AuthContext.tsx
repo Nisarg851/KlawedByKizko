@@ -2,8 +2,8 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { User } from '../types';
 
 // Simple auth configuration
-const ADMIN_EMAIL = 'kizko@example.com';
-const ADMIN_PASSWORD = 'admin123';
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 
 interface AuthContextType {
   currentUser: User | null;

@@ -42,7 +42,7 @@ function Services() {
   };
 
   return (
-    <section className="section bg-white">
+    <section className="section bg-background">
       <div className="container">
         <div className="text-center mb-12">
           <motion.h2 
@@ -50,7 +50,7 @@ function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-serif text-3xl md:text-4xl text-secondary-900 mb-4"
+            className="font-serif text-3xl md:text-4xl text-foreground mb-4"
           >
             Why Choose Klawed by Kizko
           </motion.h2>
@@ -59,7 +59,7 @@ function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-neutral-600 max-w-2xl mx-auto"
+            className="text-neutral-400 max-w-2xl mx-auto"
           >
             Experience nail artistry that elevates beyond the ordinary. Each session is an opportunity to express your unique style.
           </motion.p>
@@ -76,11 +76,11 @@ function Services() {
             <motion.div 
               key={index}
               variants={item}
-              className="card p-6 hover:translate-y-[-8px]"
+              className="bg-card p-6 rounded-xl hover:translate-y-[-8px]"
             >
               <div className="mb-4">{service.icon}</div>
-              <h3 className="font-serif text-xl text-secondary-800 mb-2">{service.title}</h3>
-              <p className="text-neutral-600 mb-4">{service.description}</p>
+              <h3 className="font-serif text-xl text-foreground mb-2">{service.title}</h3>
+              <p className="text-neutral-400 mb-4">{service.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -90,12 +90,12 @@ function Services() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 bg-secondary-50 rounded-xl p-8 md:p-12 shadow-md"
+          className="mt-16 bg-card rounded-xl p-8 md:p-12 shadow-md"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="font-serif text-2xl md:text-3xl text-secondary-900 mb-4">Ready to transform your nails?</h3>
-              <p className="text-neutral-600 mb-6">
+              <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">Ready to transform your nails?</h3>
+              <p className="text-neutral-400 mb-6">
                 Book your appointment today and experience the artistry of Kizko. From subtle elegance to bold statements, 
                 your nails will become a canvas for expressing your unique style.
               </p>
@@ -103,7 +103,7 @@ function Services() {
                 <Link to="/booking" className="btn btn-primary">
                   Book Appointment
                 </Link>
-                <Link to="/inquiry" className="btn btn-outline">
+                <Link to="/inquiry" className="btn border-2 border-primary-500 text-primary-500 hover:bg-foreground">
                   Custom Design Inquiry
                 </Link>
               </div>

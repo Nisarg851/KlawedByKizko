@@ -7,6 +7,7 @@ import { GalleryTier, NailShape, NailLength } from '../../types';
 import 'react-calendar/dist/Calendar.css';
 import supabase from '../../utils/Supabase';
 import NewsletterPopup from '../home/NewsletterPopup';
+import Loader from '../layout/Loader';
 
 interface FormData {
   name: string;
@@ -34,9 +35,6 @@ interface AppointmentModel {
   notes: string;
 }
 
-const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_API_ENV;
-const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
-
 function BookingForm() {
   const defualtFormData: FormData = {
     name: '',
@@ -52,7 +50,7 @@ function BookingForm() {
   }
 
   const [formData, setFormData] = useState<FormData>(defualtFormData);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -107,9 +105,6 @@ function BookingForm() {
   },[errors]);
 
   const saveData = async (newFormData: FormData) => {
-    // console.log("Saving Data...")
-    // console.log("Form data: ", newFormData, " submitted ✅");
-
     const [hours, minutes] = newFormData.time.split(':').map(Number);
     newFormData.date.setHours(hours, minutes, 0, 0);
 
@@ -138,6 +133,7 @@ function BookingForm() {
 
     // console.log("Appointment booked!", data);
     setSubmitted(true);
+    setIsLoading(false);
     setErrors({...errors, formSubmission: "success"});
   };
 
@@ -234,15 +230,18 @@ function BookingForm() {
     e.preventDefault();
     // console.log("Handling Submit!!!");
     if (validateStep(step)) {
+      setIsLoading(true);
+
       let uploadedImagePromises = [] as Promise<string>[];
       if(formData.inspirationPhotos.length > 0){
        uploadedImagePromises = formData.inspirationPhotos.map(async (photo) => {
           const image = new FormData();
           image.append("file", photo as Blob);
           image.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string);
-          image.append("cloud_name", import.meta.env.VITE_CLOUDINARY_API_ENV as string);
+          image.append("cloud_name", import.meta.env.VITE_CLOUDINARY_API_ENV as string);          
+          image.append("asset_folder", import.meta.env.VITE_CLOUDINARY_UPLOAD_BOOKINGS_FOLDER as string);
 
-          let res = await fetch(CLOUDINARY_URL, {
+          let res = await fetch(import.meta.env.VITE_CLOUDINARY_UPLOAD_URL, {
             method: "POST",
             body: image
           });
@@ -253,8 +252,6 @@ function BookingForm() {
           }
           
           res = await res.json();
-
-          // console.log(`Uploaded image ${index}: `, res.url);
 
           return res.url;
         });
@@ -319,7 +316,7 @@ function BookingForm() {
       const display = `${String(displayHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${ampm}`;
 
       slots.push(
-        <option key={value} value={value}>
+        <option key={value} value={value} className='text-neutral-800 dark:text-neutral-200'>
           {display}
         </option>
       );
@@ -359,11 +356,11 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Your Information</h3>
+            <h3 className="font-serif text-2xl text-foreground mb-6">Your Information</h3>
             
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-neutral-700 mb-1">Full Name</label>
+                <label htmlFor="name" className="block text-neutral-800 dark:text-neutral-200 mb-1">Full Name</label>
                 <input
                   type="text"
                   id="name"
@@ -381,7 +378,7 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-neutral-700 mb-1">Email Address</label>
+                <label htmlFor="email" className="block text-neutral-800 dark:text-neutral-200 mb-1">Email Address</label>
                 <input
                   type="email"
                   id="email"
@@ -399,7 +396,7 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="phone" className="block text-neutral-700 mb-1">Phone Number</label>
+                <label htmlFor="phone" className="block text-neutral-800 dark:text-neutral-200 mb-1">Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
@@ -438,11 +435,11 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Service Choice</h3>
+            <h3 className="font-serif text-2xl text-foreground mb-6">Service Choice</h3>
             
             <div className="space-y-4">
               <div>
-                <label htmlFor="serviceTier" className="block text-neutral-700 mb-1">Service Tier</label>
+                <label htmlFor="serviceTier" className="block text-neutral-800 dark:text-neutral-200 mb-1">Service Tier</label>
                 <select
                   id="serviceTier"
                   name="serviceTier"
@@ -458,7 +455,7 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="nailShape" className="block text-neutral-700 mb-1">Nail Shape</label>
+                <label htmlFor="nailShape" className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Shape</label>
                 <select
                   id="nailShape"
                   name="nailShape"
@@ -475,7 +472,7 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="nailLength" className="block text-neutral-700 mb-1">Nail Length</label>
+                <label htmlFor="nailLength" className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Length</label>
                 <select
                   id="nailLength"
                   name="nailLength"
@@ -519,11 +516,11 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Appointment Date & Time</h3>
+            <h3 className="font-serif text-2xl text-foreground mb-6">Appointment Date & Time</h3>
             
             <div className="space-y-6">
               <div>
-                <label className="block text-neutral-700 mb-3">Select a Date</label>
+                <label className="block text-neutral-800 dark:text-neutral-200 mb-3">Select a Date</label>
                 <div className="calendar-container border border-neutral-200 rounded-lg overflow-hidden">
                   <Calendar
                     onChange={(date) => setFormData({ ...formData, date: date as Date })}
@@ -537,13 +534,13 @@ function BookingForm() {
                     tileDisabled={({ date }) => isDateUnavailable(date)}
                   />
                 </div>
-                <p className="text-sm text-neutral-500 mt-2">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
                   <span className="text-primary-500">Note:</span> Highlighted dates are unavailable.
                 </p>
               </div>
               
               <div>
-                <label htmlFor="time" className="block text-neutral-700 mb-1">Available Time Slots</label>
+                <label htmlFor="time" className="block text-neutral-800 dark:text-neutral-200 mb-1">Available Time Slots</label>
                 <select
                   id="time"
                   name="time"
@@ -583,12 +580,12 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Inspiration & Notes</h3>
+            <h3 className="font-serif text-2xl text-foreground mb-6">Inspiration & Notes</h3>
             
             <div className="space-y-6">
               <div>
-                <label className="block text-neutral-700 mb-1">Inspiration Photos (Optional)</label>
-                <p className="text-sm text-neutral-500 mb-3">Upload up to 3 images to help us understand your vision.</p>
+                <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Inspiration Photos (Optional)</label>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Upload up to 3 images to help us understand your vision.</p>
                 
                 <div 
                   {...getRootProps()} 
@@ -599,7 +596,7 @@ function BookingForm() {
                   <input {...getInputProps()} />
                   <Upload className="mx-auto text-neutral-400 mb-2" size={28} />
                   <p>Drag & drop images here, or click to select</p>
-                  <p className="text-sm text-neutral-500 mt-1">Max 3 files, 5MB per file</p>
+                  <p className="text-sm text-neutral-400 dark:text-neutral-400 mt-1">Max 3 files, 5MB per file</p>
                 </div>
                 
                 {errors.photos && (
@@ -632,7 +629,7 @@ function BookingForm() {
               </div>
               
               <div>
-                <label htmlFor="notes" className="block text-neutral-700 mb-1">Additional Notes (Optional)</label>
+                <label htmlFor="notes" className="block text-neutral-800 dark:text-neutral-200 mb-1">Additional Notes (Optional)</label>
                 <textarea
                   id="notes"
                   name="notes"
@@ -672,40 +669,40 @@ function BookingForm() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <h3 className="font-serif text-2xl text-secondary-900 mb-6">Order Details</h3>
+            <h3 className="font-serif text-2xl text-foreground mb-6">Order Details</h3>
             
             <div>
-              <label className="block text-neutral-700 mb-1">Full Name</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.name}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Full Name</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.name}</p>
 
-              <label className="block text-neutral-700 mb-1">Email</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.email}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Email</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.email}</p>
 
-              <label className="block text-neutral-700 mb-1">Phone number</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.phone}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Phone number</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.phone}</p>
             </div>
 
             <div>
-              <label className="block text-neutral-700 mb-1">Service Tier</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.serviceTier}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Service Tier</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.serviceTier}</p>
 
-              <label className="block text-neutral-700 mb-1">Nail Shape</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.nailShape}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Shape</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.nailShape}</p>
 
-              <label className="block text-neutral-700 mb-1">Nail Length</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.nailLength}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Length</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.nailLength}</p>
             </div>
 
             <div>
-              <label className="block text-neutral-700 mb-1">Date and Time</label>
-              <p className="text-sm text-neutral-500 mb-3">{formData.date.toDateString()} at {formData.time}</p>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Date and Time</label>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.date.toDateString()} at {formData.time}</p>
             </div>
 
             <div>
               {
                 formData.inspirationPhotos.length > 0 && (
                 <div>
-                  <label className="block text-neutral-700 mb-1">Inspiration Photos</label>
+                  <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Inspiration Photos</label>
                   <div className="mt-4 grid grid-cols-3 gap-3 mb-3">
                     {formData.inspirationPhotos.map((file, index) => (
                       <div key={index} className="relative">
@@ -723,8 +720,8 @@ function BookingForm() {
               {
                 formData.notes!="" && (
                   <div>
-                    <label className="block text-neutral-700 mb-1">Additional Notes</label>
-                    <p className="text-sm text-neutral-500 mb-3">{formData.notes}</p>
+                    <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Additional Notes</label>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{formData.notes}</p>
                   </div>
               )}
             </div>
@@ -753,6 +750,12 @@ function BookingForm() {
     }
   };
 
+  if(isLoading){
+    return (<div className='flex justify-center'>
+      <Loader />
+    </div>);
+  }
+  
   // Success message after submission
   if (submitted) {
     return (
@@ -786,7 +789,7 @@ function BookingForm() {
   }
 
   return (
-    <div className="card p-6 md:p-8">
+    <div className="bg-card p-6 md:p-8 rounded-xl">
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           {[1, 2, 3, 4, 5].map((stepNumber) => (
@@ -799,8 +802,8 @@ function BookingForm() {
                   stepNumber === step 
                     ? 'bg-primary-500 text-white' 
                     : stepNumber < step 
-                      ? 'bg-primary-200 text-primary-700' 
-                      : 'bg-neutral-200 text-neutral-500'
+                      ? 'bg-primary-400 text-white' 
+                      : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-400'
                 }`}
               >
                 {stepNumber < step ? <Check size={16} /> : stepNumber}

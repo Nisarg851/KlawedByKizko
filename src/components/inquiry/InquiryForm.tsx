@@ -2,15 +2,34 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useDropzone } from 'react-dropzone';
 import { Check, AlertCircle, Upload, X } from 'lucide-react';
+import supabase from '../../utils/Supabase';
+import NewsletterPopup from '../home/NewsletterPopup';
+import Loader from '../layout/Loader';
+
+interface FormData {
+  name: string;
+  email: string;
+  designDescription: string;
+  inspirationPhotos: (File|string)[];
+}
+
+interface InquiryModel {
+  name: string;
+  email: string;
+  design_description: string;
+  inspiration_photos: string[];
+}
 
 function InquiryForm() {
-  const [formData, setFormData] = useState({
+  const defaultFormData = {
     name: '',
     email: '',
     designDescription: '',
-    inspirationPhotos: [] as File[],
-  });
+    inspirationPhotos: [] as (File|string)[],
+  }
 
+  const [formData, setFormData] = useState(defaultFormData);
+  const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -91,15 +110,77 @@ function InquiryForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const saveData = async (newFormData: FormData) => {
+    const inquiryModel: InquiryModel = {
+      name: newFormData.name,
+      email: newFormData.email,
+      design_description: newFormData.designDescription,
+      inspiration_photos: newFormData.inspirationPhotos as string[]
+    }
+
+    const {error: supabaseError} = await supabase.from("inquiries")
+                                        .insert([inquiryModel]);
+
+    if(supabaseError){
+      console.log(supabaseError);
+      setErrors({...errors, formSubmission: "failure"});
+      return;
+    }
+
+    setSubmitted(true);
+    setIsLoading(false);
+
+    setErrors({...errors, formSubmission: "success"});
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Here you would typically send the data to the server
       console.log(formData);
-      setSubmitted(true);
+      setIsLoading(true);
+
+      let uploadedImagePromises = [] as Promise<string>[];
+      if(formData.inspirationPhotos.length > 0){
+       uploadedImagePromises = formData.inspirationPhotos.map(async (photo) => {
+          const image = new FormData();
+          image.append("file", photo as Blob);
+          image.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string);
+          image.append("cloud_name", import.meta.env.VITE_CLOUDINARY_API_ENV as string);
+          image.append("asset_folder", import.meta.env.VITE_CLOUDINARY_UPLOAD_INQUIRIES_FOLDER);
+
+          let res = await fetch(import.meta.env.VITE_CLOUDINARY_UPLOAD_URL, {
+            method: "POST",
+            body: image
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error.message || `Cloudinary upload failed!`);
+          }
+          
+          res = await res.json();
+
+          return res.url;
+        });
+      }
+      
+      const results = await Promise.all(uploadedImagePromises);
+      const uploadedImageUrls = await results.filter(url => url!=null) as string[];
+
+      setFormData((prevFormData: FormData) => {
+        const newFormData = { ...prevFormData, inspirationPhotos: uploadedImageUrls};
+        saveData(newFormData);
+        return defaultFormData;
+      });
     }
   };
 
+  if(isLoading){
+    return (<div className='flex justify-center'>
+      <Loader />
+    </div>);
+  }
+  
   // Success message after submission
   if (submitted) {
     return (
@@ -117,6 +198,9 @@ function InquiryForm() {
           Thank you for your interest in a custom nail design. Kizko will review your request 
           and contact you within 48 hours to discuss your design in more detail.
         </p>
+        {
+          submitted && ( <NewsletterPopup />)
+        }
         <div className="mt-6">
           <button
             onClick={() => window.location.href = '/'}
@@ -130,10 +214,10 @@ function InquiryForm() {
   }
 
   return (
-    <div className="card p-6 md:p-8">
+    <div className="bg-card rounded-xl p-6 md:p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-neutral-700 mb-1">Full Name</label>
+          <label htmlFor="name" className="block text-neutral-800 dark:text-neutral-200 mb-1">Full Name</label>
           <input
             type="text"
             id="name"
@@ -151,7 +235,7 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-neutral-700 mb-1">Email Address</label>
+          <label htmlFor="email" className="block text-neutral-800 dark:text-neutral-200 mb-1">Email Address</label>
           <input
             type="email"
             id="email"
@@ -169,7 +253,7 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label htmlFor="designDescription" className="block text-neutral-700 mb-1">Design Description</label>
+          <label htmlFor="designDescription" className="block text-neutral-800 dark:text-neutral-200 mb-1">Design Description</label>
           <textarea
             id="designDescription"
             name="designDescription"
@@ -186,8 +270,8 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label className="block text-neutral-700 mb-1">Inspiration Photos (Optional)</label>
-          <p className="text-sm text-neutral-500 mb-3">Upload up to 3 images to help us understand your vision.</p>
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Inspiration Photos (Optional)</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Upload up to 3 images to help us understand your vision.</p>
           
           <div 
             {...getRootProps()} 
@@ -198,7 +282,7 @@ function InquiryForm() {
             <input {...getInputProps()} />
             <Upload className="mx-auto text-neutral-400 mb-2" size={28} />
             <p>Drag & drop images here, or click to select</p>
-            <p className="text-sm text-neutral-500 mt-1">Max 3 files, 5MB per file</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Max 3 files, 5MB per file</p>
           </div>
           
           {errors.photos && (
@@ -233,8 +317,7 @@ function InquiryForm() {
         <div className="mt-8">
           <button
             type="submit"
-            className="btn btn-primary w-full"
-          >
+            className="btn btn-primary w-full">
             Submit Inquiry
           </button>
         </div>

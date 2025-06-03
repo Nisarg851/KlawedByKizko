@@ -122,53 +122,53 @@ function GalleryGrid({ initialFilter = 'All' }: GalleryGridProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-4 mb-8">
+      <div className="bg-card flex justify-between mb-8 p-1 gap-4 rounded-lg overflow-scroll">
         <button
           onClick={() => setFilter('All')}
-          className={`px-4 py-2 rounded-full transition-colors ${
+          className={`px-4 py-2 rounded-md transition-colors ${
             filter === 'All' 
-              ? 'bg-secondary-800 text-white' 
-              : 'bg-neutral-100 text-secondary-800 hover:bg-neutral-200'
+              ? 'bg-neutral-800 text-white' 
+              : 'bg-transparent text-foreground hover:text-secondary-900 hover:bg-neutral-200'
           }`}
         >
           All Designs
         </button>
         <button
           onClick={() => setFilter('Artifact')}
-          className={`px-4 py-2 rounded-full transition-colors ${
+          className={`px-4 py-2 rounded-md transition-colors ${
             filter === 'Artifact' 
               ? 'bg-accent-500 text-white' 
-              : 'bg-neutral-100 text-secondary-800 hover:bg-neutral-200'
+              : 'bg-transparent text-foreground hover:text-secondary-900 hover:bg-accent-100'
           }`}
         >
           Artifact
         </button>
         <button
           onClick={() => setFilter('Legendary')}
-          className={`px-4 py-2 rounded-full transition-colors ${
+          className={`px-4 py-2 rounded-md transition-colors ${
             filter === 'Legendary' 
               ? 'bg-purple-500 text-white' 
-              : 'bg-neutral-100 text-secondary-800 hover:bg-neutral-200'
+              : 'bg-transparent text-foreground hover:text-secondary-900 hover:bg-purple-100'
           }`}
         >
           Legendary
         </button>
         <button
           onClick={() => setFilter('Epic')}
-          className={`px-4 py-2 rounded-full transition-colors ${
+          className={`px-4 py-2 rounded-md transition-colors ${
             filter === 'Epic' 
               ? 'bg-primary-500 text-white' 
-              : 'bg-neutral-100 text-secondary-800 hover:bg-neutral-200'
+              : 'bg-transparent text-foreground hover:text-secondary-900 hover:bg-primary-100'
           }`}
         >
           Epic
         </button>
         <button
           onClick={() => setFilter('Rare')}
-          className={`px-4 py-2 rounded-full transition-colors ${
+          className={`px-4 py-2 rounded-md transition-colors ${
             filter === 'Rare' 
               ? 'bg-secondary-500 text-white' 
-              : 'bg-neutral-100 text-secondary-800 hover:bg-neutral-200'
+              : 'bg-transparent text-foreground hover:text-secondary-900 hover:bg-secondary-100'
           }`}
         >
           Rare
@@ -221,7 +221,7 @@ function GalleryGrid({ initialFilter = 'All' }: GalleryGridProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-card rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="grid grid-cols-1 md:grid-cols-2">
@@ -236,8 +236,8 @@ function GalleryGrid({ initialFilter = 'All' }: GalleryGridProps) {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-2xl text-secondary-900 mb-2">{selectedItem.title}</h3>
-                <p className="text-neutral-600 mb-6">{selectedItem.description}</p>
+                <h3 className="font-serif text-2xl text-foreground mb-2">{selectedItem.title}</h3>
+                <p className="text-neutral-400 mb-6">{selectedItem.description}</p>
                 <div className="mt-auto space-y-4">
                   <button 
                     onClick={() => window.location.href = '/booking'}

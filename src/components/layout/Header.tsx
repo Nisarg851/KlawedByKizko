@@ -14,20 +14,9 @@ function Header({ isAdmin = false }: HeaderProps) {
   const { currentUser, logout } = useAuth();
   const location = useLocation();
 
-  // Close menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
-
-  // Detect scroll for header styling
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -37,7 +26,7 @@ function Header({ isAdmin = false }: HeaderProps) {
     }
   };
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/50 bg-transparent py-4`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-transparent py-4`;
 
   return (
     <header className={headerClasses}>
@@ -50,13 +39,11 @@ function Header({ isAdmin = false }: HeaderProps) {
             transition={{ duration: 0.5 }}
             className={`font-serif text-2xl font-bold`}
           >
-            {/* <span className="text-xl font-bold tracking-tight"> */}
-              {
-              isAdmin 
-                ? <span className="text-xl font-bold tracking-tight"><span className="text-accent">Kizko </span><span className="text-foreground">Admin</span></span>
-                : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-primary-500">Kizko</span></span>
-              }
-            {/* </span> */}
+            {
+            isAdmin 
+              ? <span className="text-xl font-bold tracking-tight"><span className="text-accent">Kizko </span><span className="text-foreground">Admin</span></span>
+              : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-primary-500">Kizko</span></span>
+            }
           </motion.div>
         </Link>
 
@@ -73,7 +60,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               <NavLink to="/admin/gallery" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Gallery
               </NavLink>
-              {/* <ThemeToggle /> */}
+              <ThemeToggle />
               <button 
                 onClick={handleLogout} 
                 className="btn btn-outline"
@@ -98,7 +85,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               <NavLink to="/inquiry" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Custom Design
               </NavLink>
-              {/* <ThemeToggle /> */}
+              <ThemeToggle />
               {currentUser?.isAdmin && (
                 <Link to="/admin" className="btn btn-primary">
                   Admin
@@ -110,7 +97,7 @@ function Header({ isAdmin = false }: HeaderProps) {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-2">
-          {/* <ThemeToggle /> */}
+          <ThemeToggle />
           <button 
             className="text-secondary-800 dark:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -127,7 +114,7 @@ function Header({ isAdmin = false }: HeaderProps) {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-transparent shadow-md"
+          className="md:hidden bg- shadow-md"
         >
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {isAdmin ? (

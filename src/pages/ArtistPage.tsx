@@ -20,20 +20,20 @@ function ArtistPage() {
             <span className="inline-block px-3 py-1 bg-primary-100 text-primary-800 text-sm font-medium rounded-full mb-4">
               Meet The Artist
             </span>
-            <h1 className="font-serif text-4xl md:text-5xl text-secondary-900 mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-6">
               Kizko
             </h1>
-            <p className="text-neutral-700 mb-6 leading-relaxed">
+            <p className="text-neutral-400 mb-6 leading-relaxed">
               With over 8 years of experience in nail artistry, Kizko has established herself as a premier nail artist 
               known for pushing the boundaries of creativity and precision. Her journey began with a passion for art and 
               a fascination with the potential of nails as a canvas for self-expression.
             </p>
-            <p className="text-neutral-700 mb-6 leading-relaxed">
+            <p className="text-neutral-400 mb-6 leading-relaxed">
               Having trained with some of the industry's most respected artisans in Tokyo and New York, Kizko combines 
               technical expertise with an artistic vision that transforms each client's nails into wearable masterpieces. 
               Her work has been featured in fashion magazines and worn by celebrities at red carpet events.
             </p>
-            <p className="text-neutral-700 mb-8 leading-relaxed">
+            <p className="text-neutral-400 mb-8 leading-relaxed">
               Every design is approached with meticulous attention to detail, whether it's a subtle, elegant set for 
               everyday wear or an elaborate artistic statement. Kizko believes that nail art should reflect the individuality 
               of each client, creating designs that are as unique as the person wearing them.
@@ -44,15 +44,13 @@ function ArtistPage() {
                 href="https://www.instagram.com/klawedbykiz/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
+                className="btn btn-primary">
                 <Instagram size={18} />
                 Follow on Instagram
               </a>
               <a 
                 href="mailto:kizko@example.com"
-                className="btn btn-outline"
-              >
+                className="btn btn-outline">
                 <Mail size={18} />
                 Contact Kizko
               </a>
@@ -61,15 +59,15 @@ function ArtistPage() {
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
                 <Award className="text-accent-500" size={24} />
-                <span className="text-secondary-800 font-medium">Award-Winning Artist</span>
+                <span className="text-neutral-400 font-medium">Award-Winning Artist</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="text-primary-500" size={24} />
-                <span className="text-secondary-800 font-medium">Mississauga, ON</span>
+                <span className="text-neutral-400 font-medium">Mississauga, ON</span>
               </div>
               <div className="flex items-center gap-2">
                 <Sparkles className="text-yellow-400" size={24} />
-                <span className="text-secondary-800 font-medium">Meet me at VCT Masters Toronto on June 14/15 + June 20-22</span>
+                <span className="text-neutral-400 font-medium">Meet me at VCT Masters Toronto on June 14/15 + June 20-22</span>
               </div>
             </div>
           </motion.div>
@@ -100,8 +98,7 @@ function ArtistPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-serif text-3xl text-secondary-900 mb-8 text-center"
-          >
+            className="font-serif text-3xl text-foreground mb-8 text-center">
             Instagram Feed
           </motion.h2>
           

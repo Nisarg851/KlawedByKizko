@@ -17,8 +17,8 @@ function InquiryPage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="font-serif text-4xl md:text-5xl text-secondary-900 mb-4">Custom Design Inquiry</h1>
-          <p className="text-neutral-600 max-w-2xl mx-auto">
+          <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4">Custom Design Inquiry</h1>
+          <p className="text-neutral-400 max-w-2xl mx-auto">
             Have a unique vision for your nails? Describe your dream design and Kizko will create 
             a personalized nail art experience just for you.
           </p>
@@ -34,7 +34,7 @@ function InquiryPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-secondary-50 rounded-lg p-6"
+              className="bg-secondary-50 dark:bg-secondary-100 rounded-lg p-6"
             >
               <h3 className="font-serif text-xl text-secondary-900 mb-4">Custom Design Process</h3>
               

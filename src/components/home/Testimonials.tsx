@@ -41,7 +41,7 @@ function Testimonials() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="section bg-secondary-50">
+    <section className="section bg-secondary-50 dark:bg-card">
       <div className="container">
         <div className="text-center mb-12">
           <motion.h2 
@@ -49,8 +49,7 @@ function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-serif text-3xl md:text-4xl text-secondary-900 mb-4"
-          >
+            className="font-serif text-3xl md:text-4xl text-foreground mb-4">
             What Our Clients Say
           </motion.h2>
           <motion.p 
@@ -58,8 +57,7 @@ function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-neutral-600 max-w-2xl mx-auto"
-          >
+            className="text-neutral-400 max-w-2xl mx-auto">
             Hear from those who have experienced the artistry of Kizko firsthand.
           </motion.p>
         </div>
@@ -72,14 +70,14 @@ function Testimonials() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl p-8 shadow-md"
+              className="bg-background rounded-xl p-8 shadow-md"
             >
               <div className="flex flex-col md:flex-row gap-6 items-center">
                 <div className="shrink-0">
                   <img 
                     src={currentTestimonial.avatar} 
                     alt={currentTestimonial.name} 
-                    className="w-24 h-24 rounded-full object-cover border-4 border-primary-100"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-primary-200"
                   />
                 </div>
                 <div>
@@ -88,8 +86,8 @@ function Testimonials() {
                       <Star key={i} size={18} className="fill-accent-500 text-accent-500" />
                     ))}
                   </div>
-                  <p className="text-neutral-700 italic mb-4">"{currentTestimonial.text}"</p>
-                  <p className="font-serif font-semibold text-secondary-800">{currentTestimonial.name}</p>
+                  <p className="text-neutral-700 dark:text-neutral-200 italic mb-4">"{currentTestimonial.text}"</p>
+                  <p className="font-serif font-semibold text-secondary-800 dark:text-neutral-100">{currentTestimonial.name}</p>
                 </div>
               </div>
             </motion.div>
@@ -97,27 +95,27 @@ function Testimonials() {
             <div className="flex justify-center mt-8 gap-4">
               <button 
                 onClick={prevTestimonial}
-                className="p-2 rounded-full bg-white shadow hover:bg-primary-50 transition-colors"
+                className="p-2 rounded-full bg-card shadow hover:bg-primary-50 transition-colors"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft size={24} className="text-secondary-800" />
+                <ChevronLeft size={24} className="text-foreground hover:text-background" />
               </button>
               <div className="flex gap-2 items-center">
                 {testimonials.map((_, i) => (
                   <button 
                     key={i}
                     onClick={() => setCurrentIndex(i)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all ${i === currentIndex ? 'bg-primary-500 w-6' : 'bg-neutral-300'}`}
+                    className={`w-2.5 h-2.5 rounded-full transition-all ${i === currentIndex ? 'bg-primary-400 w-6' : 'bg-neutral-100'}`}
                     aria-label={`Go to testimonial ${i + 1}`}
                   />
                 ))}
               </div>
               <button 
                 onClick={nextTestimonial}
-                className="p-2 rounded-full bg-white shadow hover:bg-primary-50 transition-colors"
+                className="p-2 rounded-full bg-card shadow hover:bg-primary-50 transition-colors"
                 aria-label="Next testimonial"
               >
-                <ChevronRight size={24} className="text-secondary-800" />
+                <ChevronRight size={24} className="text-foreground hover:text-background" />
               </button>
             </div>
           </div>

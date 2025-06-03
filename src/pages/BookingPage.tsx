@@ -17,8 +17,8 @@ function BookingPage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="font-serif text-4xl md:text-5xl text-secondary-900 mb-4">Book Your Appointment</h1>
-          <p className="text-neutral-600 max-w-2xl mx-auto">
+          <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4">Book Your Appointment</h1>
+          <p className="text-neutral-400 max-w-2xl mx-auto">
             Reserve your session with Kizko and transform your nails into wearable art. 
             Complete the form below to request an appointment.
           </p>
@@ -34,7 +34,7 @@ function BookingPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-secondary-50 rounded-lg p-6"
+              className="bg-secondary-50 dark:bg-secondary-100 rounded-lg p-6"
             >
               <h3 className="font-serif text-xl text-secondary-900 mb-4">Booking Information</h3>
               
@@ -42,7 +42,7 @@ function BookingPage() {
                 <div className="flex items-start gap-3">
                   <Calendar className="text-primary-500 shrink-0 mt-1" size={20} />
                   <div>
-                    <h4 className="font-medium text-secondary-800">Availability</h4>
+                    <h4 className="font-medium text-neutral-800">Availability</h4>
                     <p className="text-sm text-neutral-600">
                       Monday - Friday: 10:00 AM - 7:00 PM<br />
                       Saturday: 10:00 AM - 5:00 PM<br />
@@ -82,14 +82,13 @@ function BookingPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-primary-50 rounded-lg p-6"
-            >
+              className="bg-primary-50 rounded-lg p-6">
               <h3 className="font-serif text-xl text-primary-900 mb-4">Cancellation Policy</h3>
               <p className="text-sm text-primary-800 mb-4">
                 We understand that plans change. If you need to reschedule or cancel your appointment,
                 please do so at least 24 hours in advance to avoid a cancellation fee.
               </p>
-              <ul className="text-sm text-primary-800 list-disc pl-5 space-y-1">
+              <ul className="text-sm text-primary-700 list-disc pl-5 space-y-1">
                 <li>Cancellations with less than 24 hours notice may incur a 50% fee</li>
                 <li>No-shows will be charged the full appointment price</li>
                 <li>Late arrivals may result in shortened service time</li>
