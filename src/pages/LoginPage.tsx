@@ -45,10 +45,9 @@ function LoginPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="card p-8"
-        >
+          className="bg-card p-8">
           <div className="text-center mb-8">
-            <h1 className="font-serif text-3xl text-secondary-900 mb-2">Admin Login</h1>
+            <h1 className="font-serif text-3xl text-foreground mb-2">Admin Login</h1>
             <p className="text-neutral-600">
               Access the administration panel
             </p>
@@ -63,7 +62,7 @@ function LoginPage() {
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-neutral-700 mb-1">Email Address</label>
+              <label htmlFor="email" className="block text-neutral-600 mb-1">Email Address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="text-neutral-400" size={18} />
@@ -81,7 +80,7 @@ function LoginPage() {
             </div>
             
             <div>
-              <label htmlFor="password" className="block text-neutral-700 mb-1">Password</label>
+              <label htmlFor="password" className="block text-neutral-600 mb-1">Password</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="text-neutral-400" size={18} />

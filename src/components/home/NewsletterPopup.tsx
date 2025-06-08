@@ -4,10 +4,7 @@ import { Mail, X } from 'lucide-react';
 import supabase from '../../utils/Supabase';
 import Loader from '../layout/Loader';
 
-interface NewsletterModel{
-    email: string;
-    newsletter_id: number;
-};
+import { NewsletterModel } from '../../models/Models';
 
 function NewsletterPopup({ delay = 3000 }: { delay?: number; }) {
   const [isVisible, setIsVisible] = useState(false);

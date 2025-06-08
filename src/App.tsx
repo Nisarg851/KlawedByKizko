@@ -17,16 +17,6 @@ function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="gallery" element={<GalleryPage />} />
-          <Route path="artist" element={<ArtistPage />} />
-          <Route path="booking" element={<BookingPage />} />
-          <Route path="inquiry" element={<InquiryPage />} />
-          <Route path="login" element={<LoginPage />} />
-        </Route>
-        
         {/* Admin routes */}
         <Route path="/admin" element={
           <PrivateRoute>
@@ -36,6 +26,16 @@ function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="appointments" element={<AdminAppointments />} />
           <Route path="gallery" element={<AdminGallery />} />
+        </Route>
+
+        {/* Public routes */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="gallery" element={<GalleryPage />} />
+          <Route path="artist" element={<ArtistPage />} />
+          <Route path="booking" element={<BookingPage />} />
+          <Route path="inquiry" element={<InquiryPage />} />
+          <Route path="login" element={<LoginPage />} />
         </Route>
         
         {/* 404 Page */}

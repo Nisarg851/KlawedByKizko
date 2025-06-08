@@ -5,19 +5,13 @@ import { Check, AlertCircle, Upload, X } from 'lucide-react';
 import supabase from '../../utils/Supabase';
 import NewsletterPopup from '../home/NewsletterPopup';
 import Loader from '../layout/Loader';
+import { InquiryModel } from '../../models/Models';
 
 interface FormData {
   name: string;
   email: string;
   designDescription: string;
   inspirationPhotos: (File|string)[];
-}
-
-interface InquiryModel {
-  name: string;
-  email: string;
-  design_description: string;
-  inspiration_photos: string[];
 }
 
 function InquiryForm() {

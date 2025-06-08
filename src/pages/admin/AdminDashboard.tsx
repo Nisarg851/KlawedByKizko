@@ -1,39 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Image, AlertCircle, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import supabase from '../../utils/Supabase';
+import { AppointmentModel } from '../../models/Models';
 
-function AdminDashboard() {
-  const { currentUser } = useAuth();
-  
-  useEffect(() => {
-    document.title = 'Admin Dashboard | Klawed by Kizko';
-  }, []);
-
-  // Sample data for the dashboard
-  const stats = [
-    { label: 'Pending Appointments', value: 12, icon: <Clock className="text-primary-500" />, link: '/admin/appointments' },
-    { label: 'New Inquiries', value: 5, icon: <AlertCircle className="text-yellow-500" />, link: '/admin/inquiries' },
-    { label: 'Gallery Items', value: 24, icon: <Image className="text-secondary-500" />, link: '/admin/gallery' },
-    { label: 'Total Clients', value: 148, icon: <Users className="text-accent-500" />, link: '/admin/clients' },
-  ];
-
-  const recentAppointments = [
-    { id: 1, client: 'Emma Johnson', date: '2025-04-20', time: '10:00 AM', service: 'Legendary', status: 'Confirmed' },
-    { id: 2, client: 'Sophia Chen', date: '2025-04-22', time: '2:30 PM', service: 'Artifact', status: 'Pending' },
-    { id: 3, client: 'Olivia Taylor', date: '2025-04-23', time: '11:15 AM', service: 'Epic', status: 'Confirmed' },
-    { id: 4, client: 'Isabella Martinez', date: '2025-04-25', time: '3:00 PM', service: 'Rare', status: 'Pending' },
-  ];
-
-  // Status color mapping
+// Status color mapping
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Confirmed':
+      case 'confirmed':
         return 'bg-green-100 text-green-800';
-      case 'Pending':
+      case 'pending':
         return 'bg-yellow-100 text-yellow-800';
-      case 'Cancelled':
+      case 'cancelled':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-neutral-100 text-neutral-800';
@@ -43,16 +23,194 @@ function AdminDashboard() {
   // Status icon mapping
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'Confirmed':
+      case 'confirmed':
         return <CheckCircle size={16} className="text-green-500" />;
-      case 'Pending':
+      case 'pending':
         return <Clock size={16} className="text-yellow-500" />;
-      case 'Cancelled':
+      case 'cancelled':
         return <XCircle size={16} className="text-red-500" />;
       default:
         return null;
     }
   };
+
+const OrderDetails = ({appointment, callback}: {appointment: AppointmentModel, callback: React.Dispatch<React.SetStateAction<AppointmentModel | undefined>>}) => {
+  appointment.appointment_datetime_slot = new Date(appointment.appointment_datetime_slot);
+
+  const handleAppointmentStatusChange = async (id: string, status: string) => {
+    const {data, error} = await supabase.from("appointments")
+                                  .update({status: status})
+                                  .eq("id", id)
+                                  .select();
+    if(error)
+      console.log("Unable to fetch appointments: ", error);
+
+    console.log("Data Updated:", data);
+    if(data != undefined)
+      callback(data[0]);    
+  }
+
+  return (
+    <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -20 }}
+        transition={{ duration: 0.3 }}>
+        <h3 className="font-serif text-2xl text-foreground mb-6">Order Details</h3>
+        
+        <div className="text-neutral-800 dark:text-neutral-200 mb-1 flex justify-center">
+          <span className={`w-full inline-flex justify-center items-center px-2 py-2 rounded-md text-md ${getStatusColor(appointment.status)}`}>
+            {getStatusIcon(appointment.status)} <span className="mx-2 first-letter:uppercase">{appointment.status}</span>
+          </span>
+        </div>
+
+        <div>
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Full Name</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.name}</p>
+
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Email</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.email}</p>
+
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Phone number</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.phone}</p>
+        </div>
+
+        <div>
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Service Tier</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.service_tier}</p>
+
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Shape</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.nail_shape}</p>
+
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Nail Length</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.nail_length}</p>
+        </div>
+
+        <div>
+          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Date and Time</label>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.appointment_datetime_slot.toLocaleDateString()} at {appointment.appointment_datetime_slot.toLocaleTimeString()}</p>
+        </div>
+
+        <div>
+          {
+            appointment.inspiration_photos.length > 0 && (
+            <div>
+              <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Inspiration Photos</label>
+              <div className="mt-4 grid grid-cols-3 gap-3 mb-3">
+                {appointment.inspiration_photos.map((link, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={link as string}
+                      alt={`Inspiration ${index + 1}`}
+                      className="w-full h-48 object-cover rounded"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {
+            appointment.notes!="" && (
+              <div>
+                <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Additional Notes</label>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{appointment.notes}</p>
+              </div>
+          )}
+        </div>
+
+        <div className="mt-8 flex justify-between">
+          <button
+            type="button"
+            onClick={() => {handleAppointmentStatusChange(appointment.id as string, "cancelled");}}
+            className="btn bg-red-700 hover:bg-red-600 text-white">
+            Reject
+          </button>
+          <button
+            type="button"
+            onClick={() => {handleAppointmentStatusChange(appointment.id as string, "pending");}}
+            className="btn bg-yellow-500 hover:bg-yellow-400 text-white">
+            Move to Pending
+          </button>
+          <button
+            type="submit"
+            onClick={() => {handleAppointmentStatusChange(appointment.id as string, "confirmed");}}
+            className="btn bg-green-600 hover:bg-green-500 text-white">
+            Accept
+          </button>
+        </div>
+      </motion.div>
+  );
+}
+
+function AdminDashboard() {
+  const { currentUser } = useAuth();
+  const [errors, setErrors] = useState<Record<string,string>>({});
+  const [recentAppointments, setRecentAppointments] = useState<AppointmentModel[]>([]);
+  const [selectedAppointment, setSelectedAppointment] = useState<AppointmentModel>();
+  
+  // Sample data for the dashboard
+  const stats = [
+    { label: 'Pending Appointments', value: 12, icon: <Clock className="text-primary-500" />, link: '/admin/appointments' },
+    { label: 'New Inquiries', value: 5, icon: <AlertCircle className="text-yellow-500" />, link: '/admin/inquiries' },
+    { label: 'Gallery Items', value: 24, icon: <Image className="text-secondary-500" />, link: '/admin/gallery' },
+    { label: 'Total Clients', value: 148, icon: <Users className="text-accent-500" />, link: '/admin/clients' },
+  ];
+
+  // const recentAppointments = [
+  //   { id: 1, name: 'Emma Johnson', date: '2025-04-20', time: '10:00 AM', service: 'Legendary', status: 'Confirmed' },
+  //   { id: 2, name: 'Sophia Chen', date: '2025-04-22', time: '2:30 PM', service: 'Artifact', status: 'Pending' },
+  //   { id: 3, name: 'Olivia Taylor', date: '2025-04-23', time: '11:15 AM', service: 'Epic', status: 'Confirmed' },
+  //   { id: 4, name: 'Isabella Martinez', date: '2025-04-25', time: '3:00 PM', service: 'Rare', status: 'Pending' },
+  // ];
+
+  const handleAppointmentClick = (id: string) => {
+    setSelectedAppointment(recentAppointments.filter(appointment => appointment.id == id)[0] as never as AppointmentModel);
+  }
+
+  // console.log("selected:", selectedAppointment);
+
+  useEffect(() => {
+    document.title = 'Admin Dashboard | Klawed by Kizko';
+
+    const fetchBookedAppointments = async () => {
+      const today = new Date();
+      const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
+
+      const maxDate = new Date(today);
+      maxDate.setDate(maxDate.getDate() + 3);
+      maxDate.setHours(23, 59, 59, 999);
+
+      const {data, error} = await supabase.from("appointments")
+                                          .select()
+                                          .gte('appointment_datetime_slot', minDate.toISOString()) 
+                                          .lte('appointment_datetime_slot', maxDate.toISOString())
+                                          .order('appointment_datetime_slot', { ascending: true });;
+      if(error){
+        console.log("Unable to fetch appointments: ", error);
+        setErrors({...errors, "supabase_error": error.message});
+        return;
+      }
+
+      console.log("Data: ",data);
+
+      // const appointments: AppointmentModel[] = data.map(item => {
+      //   const appointment: AppointmentModel = {
+
+      //   };
+
+      //   return appointment;
+      // });
+
+      setRecentAppointments(data);
+    }
+    const fetchInquiries = async () => {}
+    const fetchNewsletters = async () => {}
+
+    fetchBookedAppointments();
+    fetchInquiries();
+    fetchNewsletters();
+  }, [errors, selectedAppointment]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -128,38 +286,57 @@ function AdminDashboard() {
                 </Link>
               </div>
               
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="overflow-scroll">
+                <table className="w-[100vw] overflow-scroll">
                   <thead>
                     <tr className="border-b border-neutral-200">
-                      <th className="text-left py-3 px-4 text-neutral-600 font-semibold">Client</th>
-                      <th className="text-left py-3 px-4 text-neutral-600 font-semibold">Date & Time</th>
-                      <th className="text-left py-3 px-4 text-neutral-600 font-semibold">Service</th>
-                      <th className="text-left py-3 px-4 text-neutral-600 font-semibold">Status</th>
+                      <th className="text-center py-3 px-4 text-neutral-600 font-semibold">No</th>
+                      <th className="text-start py-3 px-4 text-neutral-600 font-semibold">Client</th>
+                      {/* <th className="text-center py-3 px-4 text-neutral-600 font-semibold">Date & Time</th> */}
+                      {/* <th className="text-center py-3 px-4 text-neutral-600 font-semibold">Duration</th> */}
+                      {/* <th className="text-center py-3 px-4 text-neutral-600 font-semibold">Phone</th> */}
+                      <th className="text-center py-3 px-4 text-neutral-600 font-semibold">Service</th>
+                      <th className="text-center py-3 px-4 text-neutral-600 font-semibold">Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {recentAppointments.map((appointment) => (
-                      <tr key={appointment.id} className="border-b border-neutral-100 hover:bg-neutral-50">
-                        <td className="py-3 px-4 text-secondary-800 font-medium">
-                          {appointment.client}
+                    {recentAppointments.map((appointment, index) => (
+                      <tr key={appointment.id} className="border-b border-neutral-100 hover:bg-neutral-50 cursor-pointer" onClick={() => {handleAppointmentClick(appointment.id!)}}>
+                        <td className="py-3 px-4 text-neutral-600 text-center font-medium">
+                          {index+1}
                         </td>
-                        <td className="py-3 px-4 text-neutral-600">
-                          {new Date(appointment.date).toLocaleDateString('en-US', { 
+                        <td className="py-3 px-4 text-neutral-600 text-start font-medium">
+                          {appointment.name}
+                          <p className='text-neutral-500'>{appointment.email}</p>
+                          <span className="text-sm text-neutral-500">
+                            {new Date((appointment.appointment_datetime_slot)).toLocaleDateString('en-US', { 
+                              month: 'short', day: 'numeric', year: 'numeric' 
+                            })}
+                          </span>
+                          <span className="text-sm text-neutral-500"> at {new Date((appointment.appointment_datetime_slot)).toLocaleTimeString()}</span>
+                        </td>
+                        {/* <td className="py-3 px-4 text-neutral-600 text-center">
+                          {new Date((appointment.appointment_datetime_slot)).toLocaleDateString('en-US', { 
                             month: 'short', day: 'numeric', year: 'numeric' 
                           })}
                           <br />
-                          <span className="text-sm text-neutral-500">{appointment.time}</span>
-                        </td>
-                        <td className="py-3 px-4">
+                          <span className="text-sm text-neutral-500">at {new Date((appointment.appointment_datetime_slot)).toLocaleTimeString()}</span>
+                        </td> */}
+                        {/* <td className="py-3 px-4 text-neutral-500 font-md text-center">
+                          {appointment.duration} mins.
+                        </td> */}
+                        {/* <td className="py-3 px-4 text-neutral-500 font-md text-center">
+                          {appointment.phone}
+                        </td> */}
+                        <td className="py-3 px-4 text-center">
                           <span className="inline-block px-2 py-1 bg-secondary-100 text-secondary-800 text-xs rounded-full">
-                            {appointment.service}
+                            {appointment.service_tier}
                           </span>
                         </td>
-                        <td className="py-3 px-4">
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${getStatusColor(appointment.status)}`}>
+                        <td className="py-3 px-4 text-center">
+                          <span className={`inline-flex items-center px-2 py-2 rounded-full text-xs ${getStatusColor(appointment.status)}`}>
                             {getStatusIcon(appointment.status)}
-                            <span className="ml-1">{appointment.status}</span>
+                            <span className="ml-1 first-letter:uppercase">{appointment.status}</span>
                           </span>
                         </td>
                       </tr>
@@ -170,6 +347,17 @@ function AdminDashboard() {
             </div>
           </motion.div>
           
+          {selectedAppointment!=undefined && 
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}>
+                <div className="card p-6">
+                  <OrderDetails appointment={selectedAppointment} callback={setSelectedAppointment}/>
+                </div> 
+            </motion.div>
+          }
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

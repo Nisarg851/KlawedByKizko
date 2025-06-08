@@ -26,6 +26,8 @@ function Header({ isAdmin = false }: HeaderProps) {
     }
   };
 
+  // console.log("Is Admin:", isAdmin);
+
   const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-transparent py-4`;
 
   return (
@@ -40,7 +42,7 @@ function Header({ isAdmin = false }: HeaderProps) {
             className={`font-serif text-2xl font-bold`}
           >
             {
-            isAdmin 
+            isAdmin || location.pathname=="/login"
               ? <span className="text-xl font-bold tracking-tight"><span className="text-accent">Kizko </span><span className="text-foreground">Admin</span></span>
               : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-primary-500">Kizko</span></span>
             }

@@ -9,6 +9,8 @@ import supabase from '../../utils/Supabase';
 import NewsletterPopup from '../home/NewsletterPopup';
 import Loader from '../layout/Loader';
 
+import { AppointmentModel } from '../../models/Models';
+
 interface FormData {
   name: string;
   email: string;
@@ -19,19 +21,6 @@ interface FormData {
   date: Date;
   time: string;
   inspirationPhotos: (File|string)[];
-  notes: string;
-}
-
-interface AppointmentModel {
-  name: string;
-  email: string;
-  phone: string;
-  service_tier: GalleryTier;
-  nail_shape: NailShape;
-  nail_length: NailLength;
-  appointment_datetime_slot: Date;
-  duration: number;
-  inspiration_photos: (File|string)[];
   notes: string;
 }
 
@@ -119,6 +108,7 @@ function BookingForm() {
       duration: 60,
       inspiration_photos: newFormData.inspirationPhotos, 
       notes: newFormData.notes,
+      status: "pending"
     };
 
     const {error: supabaseError} = await supabase.from("appointments")

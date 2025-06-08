@@ -8,6 +8,9 @@ interface LayoutProps {
 }
 
 function Layout({ isAdmin = false }: LayoutProps) {
+
+  console.log("Rendering Layout (isAdmin):", isAdmin)
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header isAdmin={isAdmin} />
