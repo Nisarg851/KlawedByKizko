@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
 import ArtistPage from './pages/ArtistPage';
-import BookingPage from './pages/BookingPage';
+// import BookingPage from './pages/BookingPage';
 import InquiryPage from './pages/InquiryPage';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -33,7 +33,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="artist" element={<ArtistPage />} />
-          <Route path="booking" element={<BookingPage />} />
+          {/* <Route path="booking" element={<BookingPage />} /> */}
           <Route path="inquiry" element={<InquiryPage />} />
           <Route path="login" element={<LoginPage />} />
         </Route>

@@ -16,13 +16,24 @@ export interface AppointmentModel {
 }
 
 export interface InquiryModel {
+  id?: string;
   name: string;
   email: string;
   design_description: string;
   inspiration_photos: string[];
 }
 
-export interface NewsletterModel{
-    email: string;
-    newsletter_id: number;
+export interface NewsletterModel {
+  id?: string;
+  email: string;
+  newsletter_id: number;
 };
+
+export interface GalleryModel {
+  id?: string;
+  title: string;
+  tier: string;
+  url: string;
+  description: string;
+  resource_type: string;
+}

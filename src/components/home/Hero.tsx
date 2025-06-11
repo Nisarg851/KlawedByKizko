@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import PrimaryLogo from "/logo-primary.svg";
+import ProfilePhoto from "/insta-profile.jpg";
 
 function Hero() {
   const {theme} = useTheme();
@@ -20,19 +22,26 @@ function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground font-semibold leading-tight mb-6">
-              KLAWED BY <Link to='/artist'><span className="nav-link text-primary-500 animate-sparkle">KIZKO</span></Link>
-            </h1>
-            <p className="text-neutral-600 text-lg mb-8 max-w-lg">
-              Elevate your style with custom nail designs that are as unique as you are. 
-              From subtle elegance to bold statements, each creation is a work of art.
-            </p>
+            <div>
+              <div className="w-full lg:w-[20vw] min-md:h-[24vh] animate-sparkle overflow-hidden">
+                <Link to='/artist'>
+                  <img src={PrimaryLogo} className='w-full lg:w-[20vw] h-[24vh]'/>
+                </Link>
+              </div>
+              {/* <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground font-semibold leading-tight mb-6">
+                KLAWED BY <Link to='/artist'><span className="nav-link text-primary-500 animate-sparkle">KIZKO</span></Link>
+              </h1> */}
+              <p className="px-2 font-serif text-neutral-200 text-lg mb-8 max-w-lg ">
+                Elevate your style with custom nail designs that are as unique as you are.
+                From subtle elegance to bold statements, each creation is a work of art.
+              </p>
+            </div>
             <div className="flex flex-wrap gap-4">
-              <Link to="/booking" className="btn btn-primary bg-primary-500">
-                Book Now <ArrowRight size={18} />
-              </Link>
               <Link to="/gallery" className="btn border-2 border-primary-500 text-primary-500 hover:bg-foreground">
                 Explore Gallery
+              </Link>
+              <Link to="/inquiry" className="btn btn-primary bg-primary-500">
+                Custom Design Inquiry <ArrowRight size={18} />
               </Link>
             </div>
           </motion.div>
@@ -45,7 +54,7 @@ function Hero() {
           >
             <div className="relative rounded-lg overflow-hidden shadow-2xl border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300">
               <img 
-                src="https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                src={ProfilePhoto} 
                 alt="Luxury nail art design" 
                 className="w-full h-[400px] object-cover object-center"
               />
@@ -61,7 +70,7 @@ function Hero() {
             
             <div className="absolute -bottom-10 -right-10 rounded-lg overflow-hidden shadow-2xl border-8 border-white transform -rotate-6 hover:rotate-0 transition-transform duration-300 hidden md:block">
               <img 
-                src="https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                src={ProfilePhoto}
                 alt="Elegant nail design" 
                 className="w-48 h-48 object-cover object-center"
               />
@@ -82,7 +91,7 @@ function Hero() {
         {
           theme == "light"
           ? ( 
-              <path fill="#F8F7F7" fillOpacity="1" d="M0,160L80,176C160,192,320,224,480,234.7C640,245,800,235,960,229.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+              <path fill="#000021" fillOpacity="1" d="M0,160L80,176C160,192,320,224,480,234.7C640,245,800,235,960,229.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
             )
           : (
               <path fill="#131214" fillOpacity="1" d="M0,160L80,176C160,192,320,224,480,234.7C640,245,800,235,960,229.3C1120,224,1280,224,1360,224L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>

@@ -182,13 +182,13 @@ function InquiryForm() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="text-center p-8"
+        className="bg-card rounded-xl text-center p-8"
       >
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <Check className="text-green-500" size={32} />
         </div>
-        <h3 className="font-serif text-2xl text-secondary-900 mb-4">Inquiry Submitted Successfully!</h3>
-        <p className="text-neutral-600 mb-6">
+        <h3 className="font-serif text-2xl text-foregorund mb-4">Inquiry Submitted Successfully!</h3>
+        <p className="text-neutral-200 mb-6">
           Thank you for your interest in a custom nail design. Kizko will review your request 
           and contact you within 48 hours to discuss your design in more detail.
         </p>
@@ -198,9 +198,17 @@ function InquiryForm() {
         <div className="mt-6">
           <button
             onClick={() => window.location.href = '/'}
-            className="btn btn-primary"
+            className="mx-2 btn btn-primary"
           >
             Return to Home
+          </button>
+          <button
+            onClick={() => {
+              // window.location.href = '/inquiry'; 
+              setSubmitted(false);}}
+            className="mx-2 btn border-2 border-primary-500 text-primary-500 hover:bg-foreground"
+          >
+            Submit another Inquiry
           </button>
         </div>
       </motion.div>
@@ -211,7 +219,7 @@ function InquiryForm() {
     <div className="bg-card rounded-xl p-6 md:p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-neutral-800 dark:text-neutral-200 mb-1">Full Name</label>
+          <label htmlFor="name" className="block text-neutral-200 dark:text-neutral-200 mb-1">Full Name</label>
           <input
             type="text"
             id="name"
@@ -229,7 +237,7 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-neutral-800 dark:text-neutral-200 mb-1">Email Address</label>
+          <label htmlFor="email" className="block text-neutral-200 dark:text-neutral-200 mb-1">Email Address</label>
           <input
             type="email"
             id="email"
@@ -247,7 +255,7 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label htmlFor="designDescription" className="block text-neutral-800 dark:text-neutral-200 mb-1">Design Description</label>
+          <label htmlFor="designDescription" className="block text-neutral-200 dark:text-neutral-200 mb-1">Design Description</label>
           <textarea
             id="designDescription"
             name="designDescription"
@@ -264,19 +272,19 @@ function InquiryForm() {
         </div>
         
         <div>
-          <label className="block text-neutral-800 dark:text-neutral-200 mb-1">Inspiration Photos (Optional)</label>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">Upload up to 3 images to help us understand your vision.</p>
+          <label className="block text-neutral-200 dark:text-neutral-200 mb-1">Inspiration Photos (Optional)</label>
+          <p className="text-sm text-neutral-400 dark:text-neutral-400 mb-3">Upload up to 3 images to help us understand your vision.</p>
           
           <div 
             {...getRootProps()} 
             className={`border-2 border-dashed p-6 rounded-lg text-center cursor-pointer transition-colors ${
-              errors.photos ? 'border-red-500' : 'border-neutral-300 hover:border-primary-300'
+              errors.photos ? 'border-red-500' : 'border-neutral-200 hover:border-primary-300'
             }`}
           >
             <input {...getInputProps()} />
-            <Upload className="mx-auto text-neutral-400 mb-2" size={28} />
+            <Upload className="mx-auto text-neutral-200 mb-2" size={28} />
             <p>Drag & drop images here, or click to select</p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Max 3 files, 5MB per file</p>
+            <p className="text-sm text-neutral-400 dark:text-neutral-400 mt-1">Max 3 files, 5MB per file</p>
           </div>
           
           {errors.photos && (

@@ -9,25 +9,25 @@ const featuredItems = [
     id: '1',
     title: 'Crystal Elegance',
     tier: 'Artifact' as GalleryTier,
-    imageUrl: 'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    imageUrl: 'https://res.cloudinary.com/dcmetdbkq/image/upload/f_auto,q_auto,w_800/v1749427363/IMG_4723_dlliyk.jpg',
   },
   {
     id: '2',
     title: 'Golden Hour',
     tier: 'Legendary' as GalleryTier,
-    imageUrl: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    imageUrl: 'https://res.cloudinary.com/dcmetdbkq/image/upload/f_auto,q_auto,w_800/v1749427422/IMG_5050_o3h1gz.jpg',
   },
   {
     id: '3',
     title: 'Mystic Blue',
     tier: 'Epic' as GalleryTier,
-    imageUrl: 'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    imageUrl: 'https://res.cloudinary.com/dcmetdbkq/image/upload/f_auto,q_auto,w_800/v1749427376/IMG_2074_djv5p4.jpg',
   },
   {
     id: '4',
     title: 'Minimalist Dream',
     tier: 'Rare' as GalleryTier,
-    imageUrl: 'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    imageUrl: 'https://res.cloudinary.com/dcmetdbkq/image/upload/f_auto,q_auto,w_800/v1749427405/IMG_0846_ug0cy2.jpg',
   },
 ];
 
@@ -41,11 +41,6 @@ function FeaturedGallery() {
       },
     },
   };
-
-  // const item = {
-  //   hidden: { opacity: 0, y: 20 },
-  //   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  // };
 
   // Get color class based on tier
   const getTierColorClass = (tier: GalleryTier) => {
@@ -64,7 +59,7 @@ function FeaturedGallery() {
   };
 
   return (
-    <section className="section bg-neutral-50 dark:bg-secondary-900">
+    <section className="section bg-secondaryBackground dark:bg-secondary-900">
       <div className="container">
         <div className="text-center mb-12">
           <motion.h2 
@@ -72,8 +67,7 @@ function FeaturedGallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-serif text-3xl md:text-4xl text-foreground mb-4"
-          >
+            className="font-serif text-3xl md:text-4xl text-foreground mb-4">
             Featured Designs
           </motion.h2>
           <motion.p 
@@ -81,7 +75,7 @@ function FeaturedGallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-neutral-600 max-w-2xl mx-auto"
+            className="text-neutral-200 max-w-2xl mx-auto"
           >
             Discover our most captivating nail art creations, each one a unique masterpiece crafted with precision and passion.
           </motion.p>

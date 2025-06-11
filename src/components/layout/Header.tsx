@@ -3,7 +3,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
+import PrimaryLogo from "/logo-primary.svg";
 
 interface HeaderProps {
   isAdmin?: boolean;
@@ -34,7 +35,7 @@ function Header({ isAdmin = false }: HeaderProps) {
     <header className={headerClasses}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to={isAdmin ? '/admin' : '/'} className="flex items-center gap-2">
-          <Sparkles className="text-primary-500 animate-sparkle" size={24} />
+          {/* <Sparkles className="text-primary-500 animate-sparkle" size={24} /> */}
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -44,7 +45,9 @@ function Header({ isAdmin = false }: HeaderProps) {
             {
             isAdmin || location.pathname=="/login"
               ? <span className="text-xl font-bold tracking-tight"><span className="text-accent">Kizko </span><span className="text-foreground">Admin</span></span>
-              : <span className="text-xl font-bold tracking-tight"><span className="text-foreground">Klawed by </span><span className="text-primary-500">Kizko</span></span>
+              : <span className="text-xl font-bold tracking-tight">
+                  <img src={PrimaryLogo} className='w-[8rem]'/>
+                </span>
             }
           </motion.div>
         </Link>
@@ -53,16 +56,16 @@ function Header({ isAdmin = false }: HeaderProps) {
         <nav className="hidden md:flex items-center gap-8">
           {isAdmin ? (
             <>
-              <NavLink to="/admin" end className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/admin" end className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Dashboard
               </NavLink>
-              <NavLink to="/admin/appointments" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/admin/appointments" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Appointments
               </NavLink>
-              <NavLink to="/admin/gallery" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/admin/gallery" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Gallery
               </NavLink>
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
               <button 
                 onClick={handleLogout} 
                 className="btn btn-outline"
@@ -72,22 +75,22 @@ function Header({ isAdmin = false }: HeaderProps) {
             </>
           ) : (
             <>
-              <NavLink to="/" end className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/" end className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Home
               </NavLink>
-              <NavLink to="/gallery" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/gallery" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Gallery
               </NavLink>
-              <NavLink to="/artist" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              <NavLink to="/artist" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 About Kizko
               </NavLink>
-              <NavLink to="/booking" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              {/* <NavLink to="/booking" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Book Now
-              </NavLink>
-              <NavLink to="/inquiry" className="nav-link text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+              </NavLink> */}
+              <NavLink to="/inquiry" className="nav-link text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                 Custom Design
               </NavLink>
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
               {currentUser?.isAdmin && (
                 <Link to="/admin" className="btn btn-primary">
                   Admin
@@ -99,9 +102,9 @@ function Header({ isAdmin = false }: HeaderProps) {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <button 
-            className="text-secondary-800 dark:text-white"
+            className="text-foreground dark:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -121,13 +124,13 @@ function Header({ isAdmin = false }: HeaderProps) {
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {isAdmin ? (
               <>
-                <NavLink to="/admin" end className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/admin" end className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Dashboard
                 </NavLink>
-                <NavLink to="/admin/appointments" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/admin/appointments" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Appointments
                 </NavLink>
-                <NavLink to="/admin/gallery" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/admin/gallery" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Gallery
                 </NavLink>
                 <button 
@@ -139,19 +142,19 @@ function Header({ isAdmin = false }: HeaderProps) {
               </>
             ) : (
               <>
-                <NavLink to="/" end className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/" end className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Home
                 </NavLink>
-                <NavLink to="/gallery" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/gallery" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Gallery
                 </NavLink>
-                <NavLink to="/artist" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                <NavLink to="/artist" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   About Kizko
                 </NavLink>
-                <NavLink to="/booking" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                {/* <NavLink to="/booking" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Book Now
-                </NavLink>
-                <NavLink to="/inquiry" className="py-2 text-secondary-800 dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
+                </NavLink> */}
+                <NavLink to="/inquiry" className="py-2 text-foreground dark:text-white hover:text-primary-500 dark:hover:text-primary-400 font-medium">
                   Custom Design
                 </NavLink>
                 {currentUser?.isAdmin && (

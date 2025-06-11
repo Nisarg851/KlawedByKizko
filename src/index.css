@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply font-sans text-neutral-800 dark:text-neutral-100 bg-neutral-50 dark:bg-secondary-900;
+    @apply font-serif text-neutral-800 dark:text-neutral-100 bg-neutral-50 dark:bg-secondary-900;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -19,10 +19,11 @@
 @layer base {
   :root {
     /* Light Theme (Complementary to the new dark theme) */
-    --background: 0 0% 100%; /* White */
-    --foreground: 260 5% 5%; /* Dark, almost black text */
+    --background: #000035; 
+    --foreground: #ffffff;
     
-    --card: 0 0% 97%; /* Very light grey for cards */
+    --card: #000021;
+    --card-secondary: #000035;
     --card-foreground: 260 5% 15%;
     
     --popover: 0 0% 97%;
@@ -32,6 +33,7 @@
     --primary-foreground: 0 0% 100%; /* White text */
     
     --secondary: 30 80% 90%; /* Light orange/cream for secondary buttons */
+    --secondary-background: #000021;
     --secondary-foreground: 30 70% 30%; /* Darker orange text */
     
     --muted: 0 0% 94%; /* Lighter grey for muted backgrounds */
@@ -147,7 +149,7 @@
   }
   
   .input {
-    @apply w-full px-4 py-3 border border-neutral-200 dark:border-secondary-800 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-600 bg-white dark:bg-secondary-900 text-foreground placeholder-neutral-400 dark:placeholder-neutral-700;
+    @apply w-full px-4 py-3 border border-neutral-200 dark:border-secondary-800 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-600 bg-white dark:bg-secondary-900 text-secondary-900 placeholder-neutral-400 dark:placeholder-neutral-700;
   }
   
   .card {

@@ -103,10 +103,10 @@ function NewsletterPopup({ delay = 3000 }: { delay?: number; }) {
               : (<>
                   <div className="text-center mb-6">
                     <Mail className="mx-auto text-primary-500 mb-4" size={32} />
-                    <h3 className="font-serif text-xl text-secondary-900 dark:text-white mb-2">
+                    <h3 className="font-serif text-xl text-foreground dark:text-white mb-2">
                       Stay Updated with Kizko
                     </h3>
-                    <p className="text-neutral-600 dark:text-neutral-300">
+                    <p className="text-neutral-400 dark:text-neutral-300">
                       Subscribe to our newsletter for exclusive nail art inspiration and special offers.
                     </p>
                   </div>

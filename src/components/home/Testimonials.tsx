@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
 // Sample testimonial data
 const testimonials = [
@@ -41,7 +41,7 @@ function Testimonials() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="section bg-secondary-50 dark:bg-card">
+    <section className="section bg-secondaryBackground dark:bg-card">
       <div className="container">
         <div className="text-center mb-12">
           <motion.h2 
@@ -57,7 +57,7 @@ function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-neutral-400 max-w-2xl mx-auto">
+            className="text-neutral-200 max-w-2xl mx-auto">
             Hear from those who have experienced the artistry of Kizko firsthand.
           </motion.p>
         </div>
@@ -73,21 +73,24 @@ function Testimonials() {
               className="bg-background rounded-xl p-8 shadow-md"
             >
               <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="shrink-0">
+                {/* <div className="shrink-0">
                   <img 
                     src={currentTestimonial.avatar} 
                     alt={currentTestimonial.name} 
                     className="w-24 h-24 rounded-full object-cover border-4 border-primary-200"
                   />
-                </div>
+                </div> */}
                 <div>
                   <div className="flex mb-2">
                     {[...Array(currentTestimonial.rating)].map((_, i) => (
                       <Star key={i} size={18} className="fill-accent-500 text-accent-500" />
                     ))}
                   </div>
-                  <p className="text-neutral-700 dark:text-neutral-200 italic mb-4">"{currentTestimonial.text}"</p>
-                  <p className="font-serif font-semibold text-secondary-800 dark:text-neutral-100">{currentTestimonial.name}</p>
+                  <p className="flex flex-col text-foreground dark:text-neutral-200 italic mb-4">
+                    <Quote className="rotate-180 scale-50 fill-white"/>
+                    <p className="px-[8%] font-serif text-justify ">{currentTestimonial.text}</p>
+                    <Quote className="self-end scale-50 fill-white"/></p>
+                  <p className="text-end font-serif font-semibold text-foreground dark:text-neutral-100">{currentTestimonial.name}</p>
                 </div>
               </div>
             </motion.div>

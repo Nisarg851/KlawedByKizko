@@ -18,7 +18,7 @@ function InquiryPage() {
           className="text-center mb-12"
         >
           <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-4">Custom Design Inquiry</h1>
-          <p className="text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-neutral-200 max-w-2xl mx-auto">
             Have a unique vision for your nails? Describe your dream design and Kizko will create 
             a personalized nail art experience just for you.
           </p>
@@ -114,7 +114,7 @@ function InquiryPage() {
                   <div>
                     <h4 className="font-medium text-primary-800">Plan Ahead</h4>
                     <p className="text-sm text-primary-700">
-                      Custom designs often require more time, so inquire at least 1-2 weeks before your desired appointment.
+                      Custom designs often require more time, so inquire at least 1-2 weeks before your desired due date.
                     </p>
                   </div>
                 </div>

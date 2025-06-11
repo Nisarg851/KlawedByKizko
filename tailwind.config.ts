@@ -7,15 +7,20 @@ export default {
     extend: {
       fontFamily: {
         serif: ['Playfair Display', 'serif'],
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Great Vibes', 'sans-serif'],
       },
       colors: {
-        background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
+        background: 'var(--background)',
+        secondaryBackground: 'var(--secondary-background)',
+  			foreground: 'var(--foreground)',
   			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
+  				DEFAULT: 'var(--card)',
+  				foreground: 'var(--card-foreground)'
   			},
+        cardSecondary: {
+          DEFAULT: 'var(--card-secondary)',
+          foreground: 'var(--card-foreground)'
+        },
   			popover: {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'
@@ -23,16 +28,26 @@ export default {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))',
-          50: '#FCF0F5',
-          100: '#F9D5E5',
-          200: '#F4ABCB',
-          300: '#EE81B0',
-          400: '#E95796',
-          500: '#E32D7C',
-          600: '#B62463',
-          700: '#891B4A',
-          800: '#5C1232',
-          900: '#2E0919',
+          50: '#FDF0F1',
+          100: '#FBCED2',
+          200: '#F8A8AF',
+          300: '#F5818C',
+          400: '#F35B69',
+          500: '#F26167',  
+          600: '#C24D53',
+          700: '#913A3E',
+          800: '#612629',
+          900: '#301314'
+          // 50: '#FCF0F5',
+          // 100: '#F9D5E5',
+          // 200: '#F4ABCB',
+          // 300: '#EE81B0',
+          // 400: '#E95796',
+          // 500: '#E32D7C',
+          // 600: '#B62463',
+          // 700: '#891B4A',
+          // 800: '#5C1232',
+          // 900: '#2E0919',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
