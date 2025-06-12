@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import PrimaryLogo from "/logo-primary.svg";
 import ProfilePhoto from "/insta-profile.jpg";
+import NewsBanner from '../layout/NewsBanner';
 
 function Hero() {
   const {theme} = useTheme();
 
   return (
     <div className="relative min-h-[90vh] bg-background">
+      <NewsBanner/>
       {/* Background Pattern */}
       {/* <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-white bg-cover bg-center"></div>

@@ -1,3 +1,8 @@
+export const optimizeCloudinaryUrl = (url: string, options = 'f_auto,q_auto,w_800') => {
+    if (!url.includes('/upload/')) return url;
+    return url.replace('/upload/', `/upload/${options}/`);
+}
+
 const generatePublicURL = (item, item_type) => {
     return `https://res.cloudinary.com/dcmetdbkq/${item_type}/upload/v${item.version}/${item.public_id}.${item_type == "image" ? "jpg" : "mp4"}`;
 }

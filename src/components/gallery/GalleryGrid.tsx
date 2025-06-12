@@ -7,16 +7,7 @@ import Loader from '../layout/Loader';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { GalleryModel } from '../../models/Models';
 import { ImageSkeleton } from '../layout/Skeletons';
-
-// Sample gallery data
-// const galleryData: GalleryItem[] = [{
-//     id: '1',
-//     title: 'Crystal Elegance',
-//     description: 'Shimmering crystals set in a delicate gradient base, creating a luxurious statement.',
-//     imageUrl: 'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749427405/IMG_0846_ug0cy2.png',
-//     tier: 'Artifact',
-//     createdAt: new Date(),
-//   }];
+import { optimizeCloudinaryUrl } from '../../utils/Helper';
 
 interface GalleryGridProps {
   initialFilter?: GalleryTier | 'All';
@@ -28,11 +19,6 @@ interface GalleryGridProps {
 
 const ResourceMediaItem = ({ galleryItem }: {galleryItem: GalleryModel}) => {
   const [loaded, setLoaded] = useState(false);
-  
-  const optimizeCloudinaryUrl = (url: string, options = 'f_auto,q_auto,w_800') => {
-    if (!url.includes('/upload/')) return url;
-    return url.replace('/upload/', `/upload/${options}/`);
-  }
 
   return (
     <div className="aspect-square relative overflow-hidden">
@@ -73,8 +59,6 @@ const ResourceMediaItem = ({ galleryItem }: {galleryItem: GalleryModel}) => {
 
 function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPageOffset, ITEMS_PER_PAGE }: GalleryGridProps) {
 
-  // const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
-
   ///////////////////////////////////////////////////////////////
   // const [loading, setLoading] = useState(false);
   // const ITEMS_PER_PAGE = 10;
@@ -83,7 +67,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
   const [searchParams, setSearchParams] = useSearchParams();
   const tier = searchParams.get("tier") as GalleryTier ?? initialFilter;
   const [filter, setFilter] = useState<GalleryTier | 'All'>(tier);
-
+  const [selectedItem, setSelectedItem] = useState<GalleryModel | null>(null);
 
   // const [gallery, setGallery] = useState({
   //   "All": [],
@@ -265,7 +249,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
                 // variants={item}
                 // className="gallery-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
                 className="gallery-item relative overflow-hidden rounded-lg shadow-md"
-                // onClick={() => setSelectedItem(galleryItem.id)}
+                onClick={() => setSelectedItem(galleryItem)}
               >
                 <ResourceMediaItem galleryItem={galleryItem}/>
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
@@ -276,7 +260,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
                 </div>
                 {/* <div className="gallery-overlay absolute inset-0 bg-secondary-900/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
                   <button 
-                    onClick={() => setSelectedItem(galleryItem.id)}
+                    onClick={() => setSelectedItem(galleryItem)}
                     className="btn btn-primary"
                   >
                     View Details
@@ -304,28 +288,44 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
       </div>
 
       {/* Modal for gallery item details */}
-      {/* {selectedItem && (
+      {selectedItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70" onClick={() => setSelectedItem(null)}>
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-card rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="md:w-[50%] max-w-4xl w-full max-h-[90vh] overflow-hidden bg-black"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative">
-                <img 
-                  src={selectedItem.imageUrl} 
-                  alt={selectedItem.title} 
-                  className="w-full h-full object-cover object-center"
-                />
-                <div className={`absolute top-4 right-4 ${getTierColorClass(selectedItem.tier)} text-white px-3 py-1 rounded-full text-sm`}>
+            <div>
+              <div className="relative flex justify-center items-center">
+                {selectedItem.resource_type=="image"
+                  ? (
+                      <img 
+                        src={optimizeCloudinaryUrl(selectedItem.url)} 
+                        alt={selectedItem.title} 
+                        className="md:w-[60%] md:h-[50%] object-cover object-center"
+                      />
+                    )
+                  : (
+                      <div className="md:w-[50%] md:h-[45%] object-cover object-center">
+                        <video
+                          src={optimizeCloudinaryUrl(selectedItem.url)}
+                          preload="metadata"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      </div>
+                    )
+                }
+                <div className={`absolute bottom-4 right-[2%] md:right-[26%]  ${getTierColorClass(selectedItem.tier as GalleryTier)} text-white px-3 py-1 rounded-full text-sm`}>
                   {selectedItem.tier}
                 </div>
               </div>
-              <div className="p-6">
+              {/* <div className="p-6">
                 <h3 className="font-serif text-2xl text-foreground mb-2">{selectedItem.title}</h3>
                 <p className="text-neutral-200 mb-6">{selectedItem.description}</p>
                 <div className="mt-auto space-y-4">
@@ -342,11 +342,11 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
                     Close
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </motion.div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Mail, MapPin, Award, Sparkles } from 'lucide-react';
+import KizkoProfile from "/Kizko_profile.jpg";
 
 function ArtistPage() {
   useEffect(() => {
@@ -81,7 +82,7 @@ function ArtistPage() {
             <div className="relative">
               <div className="relative z-10 rounded-b-md overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.pexels.com/photos/3997380/pexels-photo-3997380.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  src={KizkoProfile} 
                   alt="Kizko at work" 
                   className="w-full object-cover"
                 />

@@ -12,6 +12,7 @@ import AdminGallery from './pages/admin/AdminGallery';
 import NotFoundPage from './pages/NotFoundPage';
 import Layout from './components/layout/Layout';
 import PrivateRoute from './components/auth/PrivateRoute';
+import ValorantPage from './pages/specials/ValorantPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="artist" element={<ArtistPage />} />
           {/* <Route path="booking" element={<BookingPage />} /> */}
           <Route path="inquiry" element={<InquiryPage />} />
+          <Route path="valorant-2025" element={<ValorantPage />} />
           <Route path="login" element={<LoginPage />} />
         </Route>
         
