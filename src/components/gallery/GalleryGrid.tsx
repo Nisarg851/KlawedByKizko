@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GalleryTier } from '../../types';
 import { useSearchParams } from 'react-router-dom';
@@ -13,6 +13,13 @@ interface GalleryGridProps {
   initialFilter?: GalleryTier | 'All';
   loading?: boolean;
   gallery: Gallery;
+  galleryTierPageOffset: {
+    "All": 0,
+    "Artifact": 0, 
+    "Legendary": 0, 
+    "Epic": 0, 
+    "Rare": 0
+  };
   setGalleryTierPageOffset: React.Dispatch<React.SetStateAction<GalleryPageOffset>>;
   ITEMS_PER_PAGE: number;
 }
@@ -57,7 +64,7 @@ const ResourceMediaItem = ({ galleryItem }: {galleryItem: GalleryModel}) => {
 }
 
 
-function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPageOffset, ITEMS_PER_PAGE }: GalleryGridProps) {
+function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageOffset, setGalleryTierPageOffset, ITEMS_PER_PAGE }: GalleryGridProps) {
 
   ///////////////////////////////////////////////////////////////
   // const [loading, setLoading] = useState(false);
@@ -232,59 +239,58 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, setGalleryTierPa
           Rare
         </button>
       </div>
-
-              {
+        {
           loading
           ? <div className="w-full h-[25vh] flex justify-center items-center"><Loader/></div>
           : (
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-      >
-            {gallery[filter].map((galleryItem) => (
-              <motion.div 
-                key={galleryItem.id}
-                // variants={item}
-                // className="gallery-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                className="gallery-item relative overflow-hidden rounded-lg shadow-md"
-                onClick={() => setSelectedItem(galleryItem)}
-              >
-                <ResourceMediaItem galleryItem={galleryItem}/>
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <span className={`inline-block px-2 py-1 text-xs text-white rounded-full mb-1 ${getTierColorClass(galleryItem.tier as GalleryTier)}`}>
-                    {galleryItem.tier}
-                  </span>
-                  {/* <h3 className="text-white font-medium">{galleryItem.title}</h3> */}
-                </div>
-                {/* <div className="gallery-overlay absolute inset-0 bg-secondary-900/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                  <button 
-                    onClick={() => setSelectedItem(galleryItem)}
-                    className="btn btn-primary"
-                  >
-                    View Details
-                  </button>
-                </div> */}
-              </motion.div>
-            ))}
-      </motion.div>
-      )}
-
-      <div className={`${gallery[filter].length<10 && "hidden"} mt-8 w-full flex justify-evenly items-center`}>
-        <button 
-          onClick={handlePrevPage}
+              gallery[filter].length==0
+              ? <h1 className="italic w-full font-serif text-2xl text-center text-foreground mb-4">That's all folks :(</h1>
+              : (<motion.div 
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {gallery[filter].map((galleryItem) => (
+                        <motion.div 
+                          key={galleryItem.id}
+                          // variants={item}
+                          // className="gallery-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                          className="gallery-item relative overflow-hidden rounded-lg shadow-md"
+                          onClick={() => setSelectedItem(galleryItem)}>
+                                    <ResourceMediaItem galleryItem={galleryItem}/>
+                                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                                      <span className={`inline-block px-2 py-1 text-xs text-white rounded-full mb-1 ${getTierColorClass(galleryItem.tier as GalleryTier)}`}>
+                                        {galleryItem.tier}
+                                      </span>
+                                      {/* <h3 className="text-white font-medium">{galleryItem.title}</h3> */}
+                                    </div>
+                                    {/* <div className="gallery-overlay absolute inset-0 bg-secondary-900/60 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                                      <button 
+                                        onClick={() => setSelectedItem(galleryItem)}
+                                        className="btn btn-primary"
+                                      >
+                                        View Details
+                                      </button>
+                                    </div> */}
+                                  </motion.div>
+                                ))}
+                        </motion.div>)
+            )
+          }
+      <div className={`mt-8 w-full flex justify-evenly items-center`}>
+        {galleryTierPageOffset[filter] > 0 && (<button 
+          onClick={()=>{handlePrevPage(filter)}}
           className="p-2 rounded-full bg-primary-500 shadow hover:bg-primary-50 transition-colors"
           aria-label="Previous">
           <ChevronLeft size={24} className="text-foreground hover:text-background" />
-        </button>
+        </button>)}
 
-        <button 
-          onClick={handleNextPage}
+        {(galleryTierPageOffset[filter] < 50 && gallery[filter].length>=10) && (<button 
+          onClick={()=>{handleNextPage(filter)}}
           className="p-2 rounded-full bg-primary-500 shadow hover:bg-primary-50 transition-colors"
           aria-label="Next">
           <ChevronRight size={24} className="text-foreground hover:text-background" />
-        </button>
+        </button>)}
       </div>
 
       {/* Modal for gallery item details */}

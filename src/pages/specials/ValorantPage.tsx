@@ -8,136 +8,271 @@ import { optimizeCloudinaryUrl } from '../../utils/Helper';
 // Valorant Agents data with nail art collections
 const valorantAgents = [
   {
-    id: 'jett',
-    name: 'Jett',
-    role: 'Duelist',
-    description: 'Wind-inspired designs with aerodynamic patterns and storm cloud effects',
-    color: '#00D4FF',
-    images: [
-      'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=800'
-    ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
-  },
-  {
-    id: 'phoenix',
-    name: 'Phoenix',
-    role: 'Duelist',
-    description: 'Fiery orange and gold designs with flame patterns and phoenix motifs',
-    color: '#FF6B35',
-    images: [
-      'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997380/pexels-photo-3997380.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=800'
-    ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
-  },
-  {
-    id: 'sage',
-    name: 'Sage',
-    role: 'Sentinel',
-    description: 'Healing jade green with crystalline structures and nature elements',
-    color: '#00FF88',
-    images: [
-      'https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3373732/pexels-photo-3373732.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=800'
-    ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
-  },
-  {
-    id: 'sova',
-    name: 'Sova',
-    role: 'Initiator',
-    description: 'Arctic blue with electric bolt patterns and hunter-inspired designs',
-    color: '#4A90E2',
-    images: [
-      'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=800'
-    ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
-  },
-  {
-    id: 'viper',
-    name: 'Viper',
+    id: 'astra',
+    name: 'Astra',
     role: 'Controller',
-    description: 'Toxic green with chemical patterns and venomous snake motifs',
-    color: '#00FF00',
+    description: 'Galactic patterns with cosmic energy and space-themed armor',
+    color: '#9B59B6',
     images: [
-      'https://images.pexels.com/photos/3997380/pexels-photo-3997380.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786724/_MG_2146_ebdrgp.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786724/_MG_2141_jvgav6.jpg',
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789350/IMG_6421_ctpuww.mov'
+  },
+  {
+    id: 'clove',
+    name: 'Clove',
+    role: 'Controller',
+    description: 'Dark urban fashion with a rebellious flair and violet accents',
+    color: '#8E44AD',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2207_o9l2yz.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2205_sezrxa.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786724/_MG_2203_upyaas.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789386/IMG_6439_t5izmp.mov'
   },
   {
     id: 'cypher',
     name: 'Cypher',
     role: 'Sentinel',
-    description: 'Tech-noir black and gold with circuit patterns and surveillance themes',
-    color: '#FFD700',
+    description: 'Desert-worn techwear with surveillance gadgets and sleek shades',
+    color: '#C0392B',
     images: [
-      'https://images.pexels.com/photos/3373732/pexels-photo-3373732.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2104_tcpahw.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2099_r1ebwn.jpg'
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789421/IMG_6406_e3yeqt.mov'
   },
   {
-    id: 'reyna',
-    name: 'Reyna',
-    role: 'Duelist',
-    description: 'red soul energy with ethereal patterns and mystical elements',
-    color: '#8A2BE2',
+    id: 'fade',
+    name: 'Fade',
+    role: 'Initiator',
+    description: 'Shadowy Turkish motifs with eerie blue hues and spectral essence',
+    color: '#34495E',
     images: [
-      'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997380/pexels-photo-3997380.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2122_m09tyo.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786725/_MG_2119_s7zer7.jpg'
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789464/IMG_6413_rxm320.mov'
+  },
+  {
+    id: 'gekko',
+    name: 'Gekko',
+    role: 'Initiator',
+    description: 'Street art aesthetic with neon splashes and companion creatures',
+    color: '#2ECC71',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786726/_MG_2212_oafhnj.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786726/_MG_2210_kmcm3y.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786726/_MG_2209_zk8dxr.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789501/IMG_6440_dkvbtr.mov'
+  },
+  {
+    id: 'harbour',
+    name: 'Harbour',
+    role: 'Controller',
+    description: 'Mystical water-themed armor inspired by ancient Indian legends',
+    color: '#2980B9',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2182_xerdqo.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2180_nmedku.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2178_vuvkzf.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789533/IMG_6434_tx8o3y.mov'
+  },
+  {
+    id: 'jett',
+    name: 'Jett',
+    role: 'Duelist',
+    description: 'Agile Korean assassin with wind-blade style and sharp elegance',
+    color: '#E74C3C',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2196_i9yi3b.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2193_fc3lr0.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786727/_MG_2190_wlvlhq.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789569/IMG_6437_lqgmlx.mov'
   },
   {
     id: 'killjoy',
     name: 'Killjoy',
     role: 'Sentinel',
-    description: 'Bright yellow with tech gadget patterns and robotic elements',
-    color: '#FFFF00',
+    description: 'German tech genius with neon devices and robotic aesthetics',
+    color: '#F1C40F',
     images: [
-      'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3373732/pexels-photo-3373732.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786728/_MG_2187_skwscx.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786728/_MG_2184_larcyq.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786728/_MG_2183_xwvwy6.jpg'
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: ''
   },
   {
-    id: 'breach',
-    name: 'Breach',
-    role: 'Initiator',
-    description: 'Seismic orange with earthquake patterns and mechanical arm designs',
-    color: '#FF4500',
+    id: 'mystbloom',
+    name: 'Mystbloom',
+    role: 'Duelist',
+    description: 'Mystic flora-themed cloak with glowing petals and burst magic',
+    color: '#DA70D6',
     images: [
-      'https://images.pexels.com/photos/3997374/pexels-photo-3997374.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786729/_MG_2081_flgr8n.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786729/_MG_2080_v7yqty.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786728/_MG_2079_cd8thf.jpg'
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749786735/IMG_6399_eejhfo.mov'
+  },
+  {
+    id: 'neon',
+    name: 'Neon',
+    role: 'Duelist',
+    description: 'Electric-blue runner with high-speed techwear and lightning boots',
+    color: '#00BFFF',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786730/_MG_2162_y1kuzp.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786730/_MG_2164_nku1sj.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786729/_MG_2159_wj1rxq.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789654/IMG_6431_dnesyr.mov'
   },
   {
     id: 'omen',
     name: 'Omen',
     role: 'Controller',
-    description: 'Shadow black with smoke patterns and mysterious void elements',
-    color: '#4B0082',
+    description: 'Cloaked shadow figure with teleportation smoke and mystery',
+    color: '#2C3E50',
     images: [
-      'https://images.pexels.com/photos/3997386/pexels-photo-3997386.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997380/pexels-photo-3997380.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/3997387/pexels-photo-3997387.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786730/_MG_2176_olpw3z.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786730/_MG_2174_k5ckj8.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786730/_MG_2173_ybygfx.jpg'
     ],
-    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/f_auto,q_auto,w_800/v1749427381/IMG_2992_q6jqb5.mp4'
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789695/IMG_6433_q9dfg3.mov'
+  },
+  {
+    id: 'oni',
+    name: 'Oni',
+    role: 'Duelist',
+    description: 'Demonic mask and armor inspired by Japanese folklore',
+    color: '#B22222',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786732/_MG_2074_uvktdv.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786732/_MG_2068_pf4960.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749786734/IMG_6393_jcnhpd.mov'
+  },
+  {
+    id: 'phoenix',
+    name: 'Phoenix',
+    role: 'Duelist',
+    description: 'Flame-infused street gear with fiery confidence and charisma',
+    color: '#FF5733',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786733/_MG_2155_nyjsdd.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786732/_MG_2151_zbaz8q.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749786736/IMG_6424_l3mluk.mov'
+  },
+  {
+    id: 'raze',
+    name: 'Raze',
+    role: 'Duelist',
+    description: 'Graffiti-covered armor with explosives and roller skates',
+    color: '#FF9F00',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786734/_MG_2130_qrasgh.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786734/_MG_2126_byw3ia.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786733/_MG_2125_io6owe.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749786738/IMG_6415_olwqft.mov'
+  },
+  {
+    id: 'reyna',
+    name: 'Reyna',
+    role: 'Duelist',
+    description: 'Vampiric queen with glowing purple eyes and sinister elegance',
+    color: '#800080',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786735/_MG_2169_va3shh.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786734/_MG_2166_wb1vwr.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789768/IMG_6432_o7ifkj.mov'
+  },
+  {
+    id: 'sage',
+    name: 'Sage',
+    role: 'Sentinel',
+    description: 'Graceful healer with flowing robes and ice crystal orbs',
+    color: '#2ECCFA',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786736/_MG_2201_tutbyb.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786736/_MG_2200_ooevkf.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786735/_MG_2198_zddtta.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789799/IMG_6438_wfrluq.mov'
+  },
+  {
+    id: 'skye',
+    name: 'Skye',
+    role: 'Initiator',
+    description: 'Earthy survivalist with animal spirit energy and forest gear',
+    color: '#27AE60',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786737/_MG_2096_zyvo0q.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786737/_MG_2088_jcok1t.jpg',
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789835/IMG_6404_mkznja.mov'
+  },
+  {
+    id: 'sovereign',
+    name: 'Sovereign',
+    role: 'Sentinel',
+    description: 'Royal golden armor with angelic energy and divine presence',
+    color: '#F5DEB3',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2086_hg5wkn.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786737/_MG_2085_czatf0.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789882/IMG_6402_ucyqv8.mov'
+  },
+  {
+    id: 'viper',
+    name: 'Viper',
+    role: 'Controller',
+    description: 'Toxic green suit with corrosive mist and venomous tech gear',
+    color: '#27AE60',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2218_ht1dsb.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2221_mf0jiv.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2217_dxh0ou.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789921/IMG_6441_gywwcw.mov'
+  },
+  {
+    id: 'vyse',
+    name: 'Vyse',
+    role: 'Initiator',
+    description: 'Cyber-enhanced tracker with scanning eye and precision toolkit',
+    color: '#3498DB',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786739/_MG_2116_gib15t.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2114_jlx4s7.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786738/_MG_2109_vjanbe.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749789958/IMG_6408_tttwe6.mov'
+  },
+  {
+    id: 'yoru',
+    name: 'Yoru',
+    role: 'Duelist',
+    description: 'Dimensional rift-walker with a stealth-driven, aggressive playstyle and a flair for deception',
+    color: '#0A0F2C',
+    images: [
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786739/_MG_2135_nmrssf.jpg',
+      'https://res.cloudinary.com/dcmetdbkq/image/upload/v1749786739/_MG_2132_crv4fp.jpg'
+    ],
+    video: 'https://res.cloudinary.com/dcmetdbkq/video/upload/v1749790012/IMG_6416_xby7ej.mov'
   }
-];
+]
+
 
 interface Media {
   title: string;
@@ -290,7 +425,7 @@ function ValorantPage() {
               <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-pink-500/30">
                 <Trophy className="text-pink-400 mx-auto mb-3" size={32} />
                 <h3 className="font-bold text-lg mb-2">Nail Art Showcase</h3>
-                <p className="text-gray-300">Exclusive 16 Agent Collections</p>
+                <p className="text-gray-300">A Huge & Exclusive Agent Collections</p>
               </div>
             </div>
 
@@ -323,8 +458,8 @@ function ValorantPage() {
               Exclusive Agent Collection
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Kizko has crafted unique nail art designs inspired by 16 Valorant agents. 
-              Each collection features 3 stunning variations showcasing the artistry behind every design.
+              Kizko has crafted unique nail art designs inspired by various Valorant agents. 
+              Each collection features a unique design showcasing the persona behind each character.
             </p>
           </motion.div>
 
@@ -339,7 +474,7 @@ function ValorantPage() {
               <Users className="text-pink-400 mb-4" size={48} />
               <h3 className="font-bold text-2xl text-white mb-4">The Agent Collection</h3>
               <p className="text-gray-300">
-                This collection features 16 distinct designs, one for each iconic agent, meticulously crafted to capture their essence, abilities, and unique style directly onto your nails.
+                This collection features 22 distinct designs, one for each iconic agent, meticulously crafted to capture their essence, abilities, and unique style directly onto your nails.
               </p>
             </motion.div>
 
@@ -351,9 +486,9 @@ function ValorantPage() {
               className="bg-gradient-to-br from-red-500/20 to-yellow-500/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30"
             >
               <Images className="text-red-400 mb-4" size={48} />
-              <h3 className="font-bold text-2xl text-white mb-4">50 Exclusive Unique Designs</h3>
+              <h3 className="font-bold text-2xl text-white mb-4">Exclusive & Unique Designs</h3>
               <p className="text-gray-300">
-                Elevate your nail game with Kizko's extensive collection of 50 exclusive and unique nail art designs.
+                Elevate your nail game with Kizko's extensive VCT collection and unique nail art designs.
               </p>
             </motion.div>
 
@@ -365,9 +500,9 @@ function ValorantPage() {
               className="bg-gradient-to-br from-pink-500/20 to-yellow-500/20 backdrop-blur-sm rounded-lg p-8 border border-pink-500/30"
             >
               <Sparkles className="text-pink-400 mb-4" size={48} />
-              <h3 className="font-bold text-2xl text-white mb-4">Triple Threat Variations</h3>
+              <h3 className="font-bold text-2xl text-white mb-4">Collective Variations</h3>
               <p className="text-gray-300">
-                Every agent gets their moment to shine with three stunning variations within their individual collection. 
+                Every agent gets their moment to shine with stunning variations within their individual collection. 
               </p>
             </motion.div>
           </div>
@@ -388,7 +523,7 @@ function ValorantPage() {
               Agent Nail Art Collection
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              View the complete nail art collection each with three intricate and unique nail art designs crafted in their honor.
+              View the complete nail art collection each with intricate and unique nail art designs crafted in their honor.
             </p>
           </motion.div>
 
@@ -404,7 +539,11 @@ function ValorantPage() {
                 onClick={() => openAgentModal(agent)}>
                 <div className="relative overflow-hidden rounded-lg bg-black/30 backdrop-blur-sm border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105">
                   <div className="aspect-square overflow-hidden">
-                    <LoadMedia title={agent.name} url={agent.video} mediaType="video"/>
+                    {
+                      agent.video!=''
+                      ? <LoadMedia title={agent.name} url={agent.video} mediaType="video"/>
+                      : <LoadMedia title={agent.name} url={agent.images[0]} mediaType="image"/>
+                    }
                     {/* <video
                             src={agent.video}
                             onLoadedData={() => setLoaded(true)}
@@ -427,7 +566,7 @@ function ValorantPage() {
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span 
-                        className="inline-block px-2 py-1 rounded-full text-xs font-bold text-black"
+                        className="inline-block px-2 py-1 rounded-full text-xs font-bold"
                         style={{ backgroundColor: agent.color }}
                       >
                         {agent.role}
@@ -515,8 +654,17 @@ function ValorantPage() {
                         <div className="w-full h-full flex items-center justify-center bg-black">
                           <div className="text-center">
                             <Play className="text-white mx-auto mb-4" size={64} />
-                            <p className="text-white text-lg">Process Video</p>
-                            <p className="text-gray-400 text-sm">Click to play</p>
+                            <video
+                              src={optimizeCloudinaryUrl(selectedAgent.video)}
+                              preload="metadata"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              className={`w-full h-full object-cover`}
+                            />
+                            {/* <p className="text-white text-lg">Process Video</p>
+                            <p className="text-gray-400 text-sm">Click to play</p> */}
                           </div>
                         </div>
                       )}
@@ -553,14 +701,18 @@ function ValorantPage() {
                           />
                         </button>
                       ))}
-                      <button
+                      {selectedAgent.video!='' && (<button
                         onClick={() => selectMedia(selectedAgent.images.length)}
-                        className={`aspect-square rounded overflow-hidden border-2 transition-colors bg-black flex items-center justify-center ${
-                          selectedMediaIndex === selectedAgent.images.length ? 'border-pink-400' : 'border-gray-600 hover:border-gray-400'
-                        }`}
-                      >
-                        <Play className="text-white" size={24} />
-                      </button>
+                        className='aspect-square rounded overflow-hidden border-2 transition-colors bg-black flex items-center justify-center 
+                          border-primary-600 hover:border-primary-400'>
+                        <div className='relative'>
+                          <Play className="pl-2 absolute top-[44%] left-[40%] text-primary-500" size={42} />
+                          <video
+                              src={selectedAgent.video}
+                              className="w-full h-full object-cover"
+                            />
+                        </div>
+                      </button>)}
                     </div>
                   </div>
 

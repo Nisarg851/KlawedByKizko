@@ -94,7 +94,7 @@ function GalleryPage() {
           </p>
         </motion.div>
         
-        <GalleryGrid loading={loading} gallery={gallery} setGalleryTierPageOffset={setGalleryTierPageOffset} ITEMS_PER_PAGE={ITEMS_PER_PAGE}/>
+        <GalleryGrid loading={loading} gallery={gallery} galleryTierPageOffset={galleryTierPageOffset} setGalleryTierPageOffset={setGalleryTierPageOffset} ITEMS_PER_PAGE={ITEMS_PER_PAGE}/>
       </div>
     </div>
   );

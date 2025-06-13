@@ -111,7 +111,7 @@ function FeaturedGallery() {
                   to={`/gallery?tier=${item.tier}`} 
                   className="btn btn-primary"
                 >
-                  View Details
+                  View More
                 </Link>
               </div>
             </motion.div>

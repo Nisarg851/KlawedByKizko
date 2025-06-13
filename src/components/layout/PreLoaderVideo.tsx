@@ -1,14 +1,12 @@
-import PreLoaderVideoFile from "/Kizklawed_preloader_video.mov";
+import { useState } from "react";
+import SplashScreen from "./SplashScreen";
 
-const PreLoaderVideo = ({ onFinished }) => {
+const PreLoaderVideo = () => {
+  const [done, setDone] = useState(false);
   return (
-    <div className="w-full h-full fixed inset-0 z-50 bg-red-500 flex justify-center items-center">
-      <video
-        src={PreLoaderVideoFile}
-        autoPlay
-        onEnded={onFinished}
-        className="w-full h-full object-cover border"
-      />
+    <div className="w-full h-full">
+      <SplashScreen onIntroComplete={()=>{setDone(true)}}/>
+      {done && <h1>Home Screen</h1>}
     </div>
   );
 };

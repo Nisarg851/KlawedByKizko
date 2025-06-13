@@ -29,7 +29,7 @@ function Header({ isAdmin = false }: HeaderProps) {
 
   // console.log("Is Admin:", isAdmin);
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-transparent py-4`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-black/40 py-4`;
 
   return (
     <header className={headerClasses}>

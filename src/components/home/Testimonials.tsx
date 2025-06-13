@@ -86,10 +86,11 @@ function Testimonials() {
                       <Star key={i} size={18} className="fill-accent-500 text-accent-500" />
                     ))}
                   </div>
-                  <p className="flex flex-col text-foreground dark:text-neutral-200 italic mb-4">
+                  <div className="flex flex-col text-foreground dark:text-neutral-200 italic mb-4">
                     <Quote className="rotate-180 scale-50 fill-white"/>
                     <p className="px-[8%] font-serif text-justify ">{currentTestimonial.text}</p>
-                    <Quote className="self-end scale-50 fill-white"/></p>
+                    <Quote className="self-end scale-50 fill-white"/>
+                  </div>
                   <p className="text-end font-serif font-semibold text-foreground dark:text-neutral-100">{currentTestimonial.name}</p>
                 </div>
               </div>

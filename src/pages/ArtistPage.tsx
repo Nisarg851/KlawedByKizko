@@ -1,9 +1,36 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Mail, MapPin, Award, Sparkles } from 'lucide-react';
+import { Instagram, MapPin, Award, Sparkles } from 'lucide-react';
 import KizkoProfile from "/Kizko_profile.jpg";
+import InstaShowCase1 from "/insta_showcase_1.jpg";
+import InstaShowCase2 from "/insta_showcase_2.jpg";
+import InstaShowCase3 from "/insta_showcase_3.jpg";
+import InstaShowCase4 from "/insta_showcase_4.jpg";
 
 function ArtistPage() {
+  const instafeed = [
+    {
+      name: "post1",
+      src: InstaShowCase1,
+      url: "https://www.instagram.com/p/DKhUvEMgLhI/?img_index=1"
+    },
+    {
+      name: "post2",
+      src: InstaShowCase2,
+      url: "https://www.instagram.com/p/DKddIboNLw-/?img_index=1"
+    },
+    {
+      name: "post3",
+      src: InstaShowCase3,
+      url: "https://www.instagram.com/p/C6KtPNRLaMw/?img_index=3"
+    },
+    {
+      name: "post4",
+      src: InstaShowCase4,
+      url: "https://www.instagram.com/p/DCzI8D0RQZ0/?img_index=1"
+    },
+  ];
+
   useEffect(() => {
     document.title = 'About Kizko | Klawed by Kizko';
   }, []);
@@ -24,20 +51,15 @@ function ArtistPage() {
             <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-6">
               Kizko
             </h1>
+
             <p className="text-neutral-200 mb-6 leading-relaxed">
-              With over 8 years of experience in nail artistry, Kizko has established herself as a premier nail artist 
-              known for pushing the boundaries of creativity and precision. Her journey began with a passion for art and 
-              a fascination with the potential of nails as a canvas for self-expression.
+              With over 8 years of experience in nail artistry, Kizko has established herself as a premier nail artist known for pushing the boundaries of creativity and precision. Her nail journey began in her bedroom at home after developing an interest in nail art and design. After many hours of getting the basics down, she quickly turned it into a new creative medium.
             </p>
             <p className="text-neutral-200 mb-6 leading-relaxed">
-              Having trained with some of the industry's most respected artisans in Tokyo and New York, Kizko combines 
-              technical expertise with an artistic vision that transforms each client's nails into wearable masterpieces. 
-              Her work has been featured in fashion magazines and worn by celebrities at red carpet events.
+              Kizko then found a way to implement her interest in anime, gaming, pop culture and art, into her nails. She has since done work for various artist, models, and conventions, displaying her dedication to the craft. She has begun to display her newfound talent on a wider scale showcasing the potential of nails as a canvas for self-expression.
             </p>
             <p className="text-neutral-200 mb-8 leading-relaxed">
-              Every design is approached with meticulous attention to detail, whether it's a subtle, elegant set for 
-              everyday wear or an elaborate artistic statement. Kizko believes that nail art should reflect the individuality 
-              of each client, creating designs that are as unique as the person wearing them.
+              Both her passion for nail art and unmatched meticulous attention to detail have allowed her to diversify her brand from subtle & elegant everyday wear to elaborate artistic statements. Kizko continues to learn and grow, constantly pushing herself to learn new techniques and further her own artistic journey.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -113,14 +135,14 @@ function ArtistPage() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className="relative aspect-square rounded-lg overflow-hidden group"
               >
-                <img 
-                  src={`https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load`} 
-                  alt={`Instagram post ${idx}`} 
+                <img
+                  src={instafeed[idx-1].src}
+                  alt={`Instagram post ${idx}`}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-secondary-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Instagram size={32} className="text-white" />
-                </div>
+                <a href={instafeed[idx-1].url} target='_blank' className="absolute inset-0 bg-secondary-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <Instagram size={32} className="text-primary-500" />
+                </a>
                 
               </motion.div>
             ))}

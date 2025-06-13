@@ -5,6 +5,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import PrimaryLogo from "/logo-primary.svg";
 import ProfilePhoto from "/insta-profile.jpg";
 import NewsBanner from '../layout/NewsBanner';
+import SecondaryLogoAnimation from "/KLAWEDBYKIZ_LOGO_SECONDARY_ANIM_V1.mp4";
 
 function Hero() {
   const {theme} = useTheme();
@@ -55,19 +56,28 @@ function Hero() {
             className="relative"
           >
             <div className="relative rounded-lg overflow-hidden shadow-2xl border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300">
-              <img 
+              {/* <img 
                 src={ProfilePhoto} 
                 alt="Luxury nail art design" 
                 className="w-full h-[400px] object-cover object-center"
+              /> */}
+              <video
+                src={SecondaryLogoAnimation}
+                preload="metadata"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-[400px] object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary-900/80 to-transparent flex items-end">
+              {/* <div className="absolute inset-0 bg-gradient-to-t from-secondary-900/80 to-transparent flex items-end">
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 bg-primary-500 text-white text-sm font-medium rounded-full mb-2">
                     Artifact Collection
                   </span>
                   <h3 className="font-serif text-2xl text-white">Crystal Dreams</h3>
                 </div>
-              </div>
+              </div> */}
             </div>
             
             <div className="absolute -bottom-10 -right-10 rounded-lg overflow-hidden shadow-2xl border-8 border-white transform -rotate-6 hover:rotate-0 transition-transform duration-300 hidden md:block">
