@@ -430,12 +430,13 @@ function ValorantPage() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/gallery" className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
+              <Link to="/gallery" 
+                className="btn border-2 border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-black px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300">
                 View Other Collections
               </Link>
               <button 
                 onClick={() => document.getElementById('agent-collection')?.scrollIntoView({ behavior: 'smooth' })}
-                className="btn border-2 border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-black px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300"
+                className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
               >
                 View Agent Collection
               </button>
@@ -540,9 +541,7 @@ function ValorantPage() {
                 <div className="relative overflow-hidden rounded-lg bg-black/30 backdrop-blur-sm border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105">
                   <div className="aspect-square overflow-hidden">
                     {
-                      agent.video!=''
-                      ? <LoadMedia title={agent.name} url={agent.video} mediaType="video"/>
-                      : <LoadMedia title={agent.name} url={agent.images[0]} mediaType="image"/>
+                      <LoadMedia title={agent.name} url={agent.images[0]} mediaType="image"/>
                     }
                     {/* <video
                             src={agent.video}
@@ -578,7 +577,7 @@ function ValorantPage() {
                       </div>
                     </div>
                     <h3 className="font-bold text-xl text-white mb-1">{agent.name}</h3>
-                    <p className="text-sm text-gray-300 line-clamp-2">{agent.description}</p>
+                    {/* <p className="text-sm text-gray-300 line-clamp-2">{agent.description}</p> */}
                   </div>
                   <div className="absolute inset-0 bg-primary-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
@@ -629,7 +628,7 @@ function ValorantPage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
-              className="bg-gray-900 rounded-lg overflow-hidden max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-gray-700"
+              className="bg-gray-900 rounded-lg overflow-hidden max-w-6xl w-full md:w-[40%] max-h-[90vh] overflow-y-auto border border-gray-700 "
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
@@ -640,7 +639,69 @@ function ValorantPage() {
                   <X size={24} />
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                <div className="p-8">
+
+                  {/* Info Section */}
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-end gap-3 mb-4">
+                        <h2 className="font-serif text-3xl text-white">{selectedAgent.name}</h2>
+                        <span 
+                          className="inline-block px-3 py-1 rounded-full text-sm font-bold text-black"
+                          style={{ backgroundColor: selectedAgent.color }}
+                        >
+                          {selectedAgent.role}
+                        </span>
+                      </div>
+                      {/* <p className="text-gray-300 text-lg leading-relaxed">{selectedAgent.description}</p> */}
+                    </div>
+
+                    {/* <div className="space-y-4">
+                      <h3 className="font-bold text-xl text-white">Collection Details</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-black/30 rounded-lg p-4">
+                          <div className="text-pink-400 font-bold text-2xl">3</div>
+                          <div className="text-gray-300 text-sm">Designs</div>
+                        </div>
+                        <div className="bg-black/30 rounded-lg p-4">
+                          <div className="text-red-400 font-bold text-2xl">1</div>
+                          <div className="text-gray-300 text-sm">Process Video</div>
+                        </div>
+                      </div>
+                    </div> */}
+
+                    {/* <div className="space-y-4">
+                      <h3 className="font-bold text-xl text-white">Design Features</h3>
+                      <ul className="space-y-2 text-gray-300">
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                          Agent-specific color palette
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          Ability-inspired patterns
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                          Premium materials and techniques
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                          Tournament-exclusive design
+                        </li>
+                      </ul>
+                    </div> */}
+
+                    {/* <div className="pt-6 border-t border-gray-700">
+                      <Link 
+                        to="/booking" 
+                        className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white w-full py-3 rounded-lg font-bold text-lg transition-all duration-300"
+                      >
+                        Book {selectedAgent.name} Design
+                      </Link>
+                    </div> */}
+                  </div>
+
                   {/* Media Section */}
                   <div className="space-y-4">
                     <div className="relative aspect-square rounded-lg overflow-hidden bg-black">
@@ -653,7 +714,7 @@ function ValorantPage() {
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-black">
                           <div className="text-center">
-                            <Play className="text-white mx-auto mb-4" size={64} />
+                            {/* <Play className="text-white mx-auto mb-4" size={64} /> */}
                             <video
                               src={optimizeCloudinaryUrl(selectedAgent.video)}
                               preload="metadata"
@@ -714,67 +775,6 @@ function ValorantPage() {
                         </div>
                       </button>)}
                     </div>
-                  </div>
-
-                  {/* Info Section */}
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <span 
-                          className="inline-block px-3 py-1 rounded-full text-sm font-bold text-black"
-                          style={{ backgroundColor: selectedAgent.color }}
-                        >
-                          {selectedAgent.role}
-                        </span>
-                        <h2 className="font-serif text-3xl text-white">{selectedAgent.name}</h2>
-                      </div>
-                      <p className="text-gray-300 text-lg leading-relaxed">{selectedAgent.description}</p>
-                    </div>
-
-                    {/* <div className="space-y-4">
-                      <h3 className="font-bold text-xl text-white">Collection Details</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-black/30 rounded-lg p-4">
-                          <div className="text-pink-400 font-bold text-2xl">3</div>
-                          <div className="text-gray-300 text-sm">Designs</div>
-                        </div>
-                        <div className="bg-black/30 rounded-lg p-4">
-                          <div className="text-red-400 font-bold text-2xl">1</div>
-                          <div className="text-gray-300 text-sm">Process Video</div>
-                        </div>
-                      </div>
-                    </div> */}
-
-                    {/* <div className="space-y-4">
-                      <h3 className="font-bold text-xl text-white">Design Features</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                          Agent-specific color palette
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-red-400 rounded-full" />
-                          Ability-inspired patterns
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                          Premium materials and techniques
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                          Tournament-exclusive design
-                        </li>
-                      </ul>
-                    </div> */}
-
-                    {/* <div className="pt-6 border-t border-gray-700">
-                      <Link 
-                        to="/booking" 
-                        className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white w-full py-3 rounded-lg font-bold text-lg transition-all duration-300"
-                      >
-                        Book {selectedAgent.name} Design
-                      </Link>
-                    </div> */}
                   </div>
                 </div>
               </div>

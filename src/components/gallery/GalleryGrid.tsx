@@ -244,7 +244,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
           ? <div className="w-full h-[25vh] flex justify-center items-center"><Loader/></div>
           : (
               gallery[filter].length==0
-              ? <h1 className="italic w-full font-serif text-2xl text-center text-foreground mb-4">That's all folks :(</h1>
+              ? <h1 className="italic w-full font-serif text-2xl text-center text-foreground mb-4">That's all folks :)</h1>
               : (<motion.div 
                     variants={container}
                     initial="hidden"
@@ -285,7 +285,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
           <ChevronLeft size={24} className="text-foreground hover:text-background" />
         </button>)}
 
-        {(galleryTierPageOffset[filter] < 50 && gallery[filter].length>=10) && (<button 
+        {(galleryTierPageOffset[filter] < 50 && gallery[filter].length>=ITEMS_PER_PAGE) && (<button 
           onClick={()=>{handleNextPage(filter)}}
           className="p-2 rounded-full bg-primary-500 shadow hover:bg-primary-50 transition-colors"
           aria-label="Next">

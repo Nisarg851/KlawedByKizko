@@ -42,7 +42,6 @@ function SplashScreen({ onIntroComplete }) {
   };
 
   const handleClickDesktop = () => {
-    // Animate the profile image sliding right on desktop
     animate(x, 240, {
       type: "spring",
       stiffness: 120,
@@ -53,13 +52,15 @@ function SplashScreen({ onIntroComplete }) {
 
   if (showVideo) {
     return (
-        <video
-        src={PreLoaderVideoFile}
-        preload="metadata"
-        onEnded={onIntroComplete}
-        autoPlay
-        playsInline
-        className="w-full h-[400px] object-cover object-center"/>
+        <div className="w-full h-[100vh] flex items-center justify-center bg-secondaryBackground">
+          <video
+            src={PreLoaderVideoFile}
+            preload="metadata"
+            onEnded={onIntroComplete}
+            autoPlay
+            playsInline
+            className="w-full object-cover object-center"/>
+        </div>
     );
   }
 

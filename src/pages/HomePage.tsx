@@ -12,17 +12,11 @@ function HomePage() {
 
   return (
     <div>
-      {/* {showPreloader ? (
-        <PreLoaderVideo onFinished={() => {setShowPreloader(false);}} />
-      ) : ( */}
-        <div>
-          <Hero />
-          <FeaturedGallery />
-          <Services />
-          <Testimonials />
-          <NewsletterPopup delay={5000} />
-        </div>
-      {/* )} */}
+      <Hero />
+      <FeaturedGallery />
+      <Services />
+      <Testimonials />
+      <NewsletterPopup delay={5000} />
     </div>
   );
 }

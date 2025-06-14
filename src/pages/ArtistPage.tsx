@@ -53,7 +53,7 @@ function ArtistPage() {
             </h1>
 
             <p className="text-neutral-200 mb-6 leading-relaxed">
-              With over 8 years of experience in nail artistry, Kizko has established herself as a premier nail artist known for pushing the boundaries of creativity and precision. Her nail journey began in her bedroom at home after developing an interest in nail art and design. After many hours of getting the basics down, she quickly turned it into a new creative medium.
+              With 3 years of experience in nail artistry, Kizko has established herself as a premier nail artist known for pushing the boundaries of creativity and precision. Her nail journey began in her bedroom at home after developing an interest in nail art and design. After many hours of getting the basics down, she quickly turned it into a new creative medium.
             </p>
             <p className="text-neutral-200 mb-6 leading-relaxed">
               Kizko then found a way to implement her interest in anime, gaming, pop culture and art, into her nails. She has since done work for various artist, models, and conventions, displaying her dedication to the craft. She has begun to display her newfound talent on a wider scale showcasing the potential of nails as a canvas for self-expression.
@@ -80,10 +80,10 @@ function ArtistPage() {
             </div>
             
             <div className="flex flex-wrap gap-6">
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <Award className="text-accent-500" size={24} />
                 <span className="text-neutral-200 font-medium">Award-Winning Artist</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-2">
                 <MapPin className="text-primary-500" size={24} />
                 <span className="text-neutral-200 font-medium">Mississauga, ON</span>

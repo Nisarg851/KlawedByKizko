@@ -22,7 +22,7 @@ export interface GalleryPageOffset {
 
 function GalleryPage() {
   const [loading, setLoading] = useState(false);
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 8;
 
   const [gallery, setGallery] = useState<Gallery>({
     "All": [],

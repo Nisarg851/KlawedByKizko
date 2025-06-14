@@ -26,17 +26,16 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div>
-              <div className="w-full lg:w-[20vw] min-md:h-[24vh] animate-sparkle overflow-hidden">
+              {/* <div className="w-full lg:w-[20vw] min-md:h-[24vh] animate-sparkle overflow-hidden">
                 <Link to='/artist'>
                   <img src={PrimaryLogo} className='w-full lg:w-[20vw] h-[24vh]'/>
                 </Link>
-              </div>
-              {/* <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground font-semibold leading-tight mb-6">
-                KLAWED BY <Link to='/artist'><span className="nav-link text-primary-500 animate-sparkle">KIZKO</span></Link>
-              </h1> */}
-              <p className="px-2 font-serif text-neutral-200 text-lg mb-8 max-w-lg ">
-                Elevate your style with custom nail designs that are as unique as you are.
-                From subtle elegance to bold statements, each creation is a work of art.
+              </div> */}
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground font-semibold leading-tight mb-6">
+                Hey There, It's <Link to='/artist'><span className="nav-link text-primary-500 animate-sparkle">KIZKO</span></Link>
+              </h1>
+              <p className="px-2 font-serif text-neutral-200 text-lg mb-8 max-w-lg">
+                Welcome to my world of bespoke nail artistry. I love transforming your vision into stunning reality, offering everything from sophisticated simplicity to vibrant, intricate masterpieces, all tailored to perfectly express your personal flair.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">

@@ -190,7 +190,7 @@ function InquiryForm() {
         <h3 className="font-serif text-2xl text-foregorund mb-4">Inquiry Submitted Successfully!</h3>
         <p className="text-neutral-200 mb-6">
           Thank you for your interest in a custom nail design. Kizko will review your request 
-          and contact you within 48 hours to discuss your design in more detail.
+          and contact you within 2 business days to discuss your design in more detail.
         </p>
         {
           submitted && ( <NewsletterPopup />)
