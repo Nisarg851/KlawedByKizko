@@ -33,6 +33,7 @@ function ArtistPage() {
 
   useEffect(() => {
     document.title = 'About Kizko | Klawed by Kizko';
+    window.scrollTo(0, 0);
   }, []);
 
   return (

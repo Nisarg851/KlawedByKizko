@@ -15,7 +15,7 @@ function LoginPage() {
   
   useEffect(() => {
     document.title = 'Admin Login | Klawed by Kizko';
-    
+    window.scrollTo(0, 0);
     // Redirect if already logged in
     if (currentUser?.isAdmin) {
       navigate('/admin');

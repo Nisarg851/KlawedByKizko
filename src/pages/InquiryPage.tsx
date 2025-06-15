@@ -6,6 +6,7 @@ import { Palette, Sparkles, Hourglass } from 'lucide-react';
 function InquiryPage() {
   useEffect(() => {
     document.title = 'Custom Design Inquiry | Klawed by Kizko';
+    window.scrollTo(0, 0);
   }, []);
 
   return (

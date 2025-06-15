@@ -8,6 +8,7 @@ import NewsletterPopup from '../components/home/NewsletterPopup';
 function HomePage() {
   useEffect(() => {
     document.title = 'Klawed by Kizko';
+    window.scrollTo(0, 0);
   }, []);
 
   return (

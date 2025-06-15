@@ -32,14 +32,15 @@ function Header({ isAdmin = false }: HeaderProps) {
   const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-black/40 py-4`;
 
   return (
-    <header className={headerClasses}>
+    <motion.header 
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className={headerClasses}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to={isAdmin ? '/admin' : '/'} className="flex items-center gap-2">
           {/* <Sparkles className="text-primary-500 animate-sparkle" size={24} /> */}
           <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
             className={`font-serif text-2xl font-bold`}
           >
             {
@@ -175,7 +176,7 @@ function Header({ isAdmin = false }: HeaderProps) {
           </nav>
         </motion.div>
       )}
-    </header>
+    </motion.header>
   );
 }
 

@@ -42,7 +42,8 @@ function GalleryPage() {
 
   useEffect(() => {
     document.title = 'Gallery | Klawed by Kizko';
-
+    window.scrollTo(0, 0);
+    
     const tiers = ["Artifact", "Legendary", "Epic", "Rare"];
     const fetchGalleryItems = async (tier: string, offset: number) => {
       setLoading(true);

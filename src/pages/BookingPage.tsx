@@ -6,6 +6,7 @@ import { Calendar, Clock, CreditCard } from 'lucide-react';
 function BookingPage() {
   useEffect(() => {
     document.title = 'Book Appointment | Klawed by Kizko';
+    window.scrollTo(0, 0);
   }, []);
 
   return (

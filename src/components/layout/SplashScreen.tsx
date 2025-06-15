@@ -2,7 +2,7 @@ import PreLoaderVideoFile from "/klawedbykiz_intro.mp4";
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import KizkoProfile from "/Kizko_profile.jpg";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
@@ -65,7 +65,11 @@ function SplashScreen({ onIntroComplete }) {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-black via-background to-black text-white relative overflow-hidden">
+    <motion.div 
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="w-screen h-screen flex items-center justify-center bg-gradient-to-br from-black via-background to-black text-white relative overflow-hidden">
       {/* iPhone-style glowing text */}
       
       {/* Swipe bar */}
@@ -73,7 +77,7 @@ function SplashScreen({ onIntroComplete }) {
         onClick={!isMobile ? handleClickDesktop : undefined}
         className="w-[300px] h-[60px] bg-primary-500/25 rounded-full border-2 border-primary-500/80 flex items-center px-2 relative cursor-pointer">
         <motion.div
-          className="w-[50px] h-[50px] rounded-full overflow-hidden border-2 border-primary-500/80"
+          className="w-[50px] h-[42px] rounded-full overflow-hidden border-2 border-primary-500/80"
           drag={isMobile ? "x" : false}
           dragConstraints={{ left: 0, right: 240 }}
           dragElastic={0.1}
@@ -82,7 +86,7 @@ function SplashScreen({ onIntroComplete }) {
         >
           <img src={KizkoProfile}
             alt="profile"
-            className="w-full h-full object-cover"/>
+            className="w-full h-full object-cover rounded-full"/>
           {/* <img
             src="/profile.jpg"
             alt="profile"
@@ -101,7 +105,7 @@ function SplashScreen({ onIntroComplete }) {
           style={{ width: x, opacity }}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

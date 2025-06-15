@@ -4,7 +4,7 @@ import { GalleryTier } from '../../types';
 import { useSearchParams } from 'react-router-dom';
 import { Gallery, GalleryPageOffset } from '../../pages/GalleryPage';
 import Loader from '../layout/Loader';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize } from 'lucide-react';
 import { GalleryModel } from '../../models/Models';
 import { ImageSkeleton } from '../layout/Skeletons';
 import { optimizeCloudinaryUrl } from '../../utils/Helper';
@@ -66,73 +66,10 @@ const ResourceMediaItem = ({ galleryItem }: {galleryItem: GalleryModel}) => {
 
 function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageOffset, setGalleryTierPageOffset, ITEMS_PER_PAGE }: GalleryGridProps) {
 
-  ///////////////////////////////////////////////////////////////
-  // const [loading, setLoading] = useState(false);
-  // const ITEMS_PER_PAGE = 10;
-  // const tiers = ["Artifact", "Legendary", "Epic", "Rare"];
-
   const [searchParams, setSearchParams] = useSearchParams();
   const tier = searchParams.get("tier") as GalleryTier ?? initialFilter;
   const [filter, setFilter] = useState<GalleryTier | 'All'>(tier);
   const [selectedItem, setSelectedItem] = useState<GalleryModel | null>(null);
-
-  // const [gallery, setGallery] = useState({
-  //   "All": [],
-  //   "Artifact": [], 
-  //   "Legendary": [], 
-  //   "Epic": [], 
-  //   "Rare": []
-  // });
-
-  // const [galleryTierPageOffset, setGalleryTierPageOffset] = useState({
-  //   "All": 0,
-  //   "Artifact": 0, 
-  //   "Legendary": 0, 
-  //   "Epic": 0, 
-  //   "Rare": 0
-  // });
-
-  // useEffect(()=>{
-
-  //   const fetchGalleryItems = async (tier, offset) => {
-  //     setLoading(true);
-  //     try {
-  //       let query = supabase.from('gallery').select();
-  //       if(tier != "All"){
-  //         query = query.eq("tier", tier);
-  //       }
-  //       const { data, error } = await query.order('created_at', { ascending: true }) 
-  //                                     .range(offset, offset + ITEMS_PER_PAGE - 1);
-
-  //       if (error) throw error;
-
-  //       // console.log(`data for ${tier}:`, data)
-  //       data.forEach(item => {
-  //         if(item.resource_type=="video")
-  //           console.log("Tier:", item.tier, " resource type:", item.resource_type)
-  //       });
-
-  //       setGallery(prevData => ({
-  //         ...prevData,
-  //         [tier]: data,
-  //       }));
-  //     } catch (error) {
-  //       console.error(`Error fetching gallery items for tier ${tier}:`, error.message);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  //   ["All",...tiers].forEach(tier => {
-  //     fetchGalleryItems(tier, galleryTierPageOffset[tier]);
-  //   });
-
-  // },[galleryTierPageOffset]);
-
-
-  // useEffect(()=>{
-    // console.log(gallery[filter]);
-  // }, [filter]);
-
 
   const handleNextPage = (tier: string) => {
     setGalleryTierPageOffset(prevPage => ({
@@ -148,13 +85,6 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
     }));
   };
 
-  ///////////////////////////////////////////////////////////////
-
-  // const filteredGallery = filter === 'All' 
-  //   ? galleryData 
-  //   : galleryData.filter(item => item.tier === filter);
-
-  // Get color class based on tier
   const getTierColorClass = (tier: GalleryTier) => {
     switch (tier) {
       case 'Artifact':
@@ -179,11 +109,6 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
       },
     },
   };
-
-  // const item = {
-  //   hidden: { opacity: 0, y: 20 },
-  //   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  // };
 
   return (
     <div>
@@ -250,6 +175,7 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
                     initial="hidden"
                     animate="show"
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      
                       {gallery[filter].map((galleryItem) => (
                         <motion.div 
                           key={galleryItem.id}
@@ -257,6 +183,11 @@ function GalleryGrid({ initialFilter = 'All', loading, gallery, galleryTierPageO
                           // className="gallery-item group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
                           className="gallery-item relative overflow-hidden rounded-lg shadow-md"
                           onClick={() => setSelectedItem(galleryItem)}>
+                                    <div className="absolute z-20 inset-0 bg-primary-400/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                      <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
+                                        <Maximize className="text-white" size={24} />
+                                      </div>
+                                    </div>
                                     <ResourceMediaItem galleryItem={galleryItem}/>
                                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                                       <span className={`inline-block px-2 py-1 text-xs text-white rounded-full mb-1 ${getTierColorClass(galleryItem.tier as GalleryTier)}`}>

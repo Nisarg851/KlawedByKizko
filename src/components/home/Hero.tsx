@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
-import PrimaryLogo from "/logo-primary.svg";
+// import PrimaryLogo from "/logo-primary.svg";
 import ProfilePhoto from "/insta-profile.jpg";
 import NewsBanner from '../layout/NewsBanner';
 import SecondaryLogoAnimation from "/KLAWEDBYKIZ_LOGO_SECONDARY_ANIM_V1.mp4";
