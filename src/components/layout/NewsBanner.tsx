@@ -18,7 +18,7 @@ export default function NewsBanner() {
         className="flex items-center justify-center gap-4 group"
       >
           <h3 className="text-xl upp sm:text-2xl font-bold leading-tight drop-shadow-sm">
-            Checkout out new Hot Valorant Collection !
+            Checkout out new Hot VALORANT Collection !
           </h3>
           {/* <p className="text-sm sm:text-base mt-1 text-white/90">
             Experience an immersive visual journey through color and form—celebrating the artist’s most ambitious work yet.

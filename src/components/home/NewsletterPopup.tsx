@@ -13,6 +13,11 @@ function NewsletterPopup({ delay = 3000 }: { delay?: number; }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
 
+  const popupItem = {
+    value: true,
+    expiry: 1000 * 60 
+  }
+
   useEffect(() => {
     // Check if the user has already seen the popup
     const hasSeenPopup = localStorage.getItem('hasSeenNewsletterPopup');
@@ -21,21 +26,16 @@ function NewsletterPopup({ delay = 3000 }: { delay?: number; }) {
         // console.log("Poping Newsletter");
         setIsVisible(true);
       }, delay);
-
-      const renewalTime = delay + (1000 * 60 * 10) ;
-      const renewalTimer = setTimeout(() => {
-        // console.log("Renewing Popup");
-        localStorage.setItem('hasSeenNewsletterPopup', 'false');
-      }, renewalTime);
-
-      return () => {clearTimeout(timer); clearTimeout(renewalTimer)};
+      localStorage.setItem('hasSeenNewsletterPopup', JSON.stringify(popupItem));
+      return () => {clearTimeout(timer)};
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay]);
 
   const handleClose = () => {
     setIsVisible(false);
     // Mark that the user has seen the popup
-    localStorage.setItem('hasSeenNewsletterPopup', 'true');
+    localStorage.setItem('hasSeenNewsletterPopup', JSON.stringify(popupItem));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -61,7 +61,7 @@ function NewsletterPopup({ delay = 3000 }: { delay?: number; }) {
     
     setIsLoading(false);
     setIsSubmitted(true);
-    localStorage.setItem('hasSeenNewsletterPopup', 'true');
+    localStorage.setItem('hasSeenNewsletterPopup', JSON.stringify(popupItem.value));
     
     // Close the popup after 2 seconds
     setTimeout(() => {

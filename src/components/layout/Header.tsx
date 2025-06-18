@@ -29,7 +29,7 @@ function Header({ isAdmin = false }: HeaderProps) {
 
   // console.log("Is Admin:", isAdmin);
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background backdrop-blur max-sm:bg-black/40 py-4`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 border-b border-primary-500/30 border-border/60 bg-background backdrop-blur max-sm:bg-black/40 py-4`;
 
   return (
     <motion.header 
@@ -94,7 +94,7 @@ function Header({ isAdmin = false }: HeaderProps) {
               <NavLink to="/valorant-2025" 
               className="bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:from-yellow-500 hover:via-red-500 hover:to-pink-500 transition-all duration-300"
               >
-                Valorant 2025
+                VALORANT 2025
               </NavLink>
               {/* <ThemeToggle /> */}
               {currentUser?.isAdmin && (
@@ -164,7 +164,7 @@ function Header({ isAdmin = false }: HeaderProps) {
                   Custom Design
                 </NavLink>
                 <NavLink to="/valorant-2025" className="py-2 bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white hover:from-yellow-500 hover:via-red-500 hover:to-pink-500 px-4 rounded-lg font-medium text-center">
-                  <i>Valorant 2025</i>
+                  <i>VALORANT 2025</i>
                 </NavLink>
                 {currentUser?.isAdmin && (
                   <Link to="/admin" className="btn btn-primary mt-2">

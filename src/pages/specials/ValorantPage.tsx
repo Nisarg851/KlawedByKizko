@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ImageSkeleton } from '../../components/layout/Skeletons';
 import { optimizeCloudinaryUrl } from '../../utils/Helper';
 import valorantAgents from "../../models/ValorantAgentCollection.json";
+import XWidgetEmbed from './XWidgetEmbed';
 
 interface Media {
   title: string;
@@ -56,8 +57,8 @@ function ValorantPage() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
-    document.title = 'Valorant Masters 2025 | Klawed by Kizko';
-    window.scrollTo(0, 0);
+    document.title = 'VALORANT MASTERS 2025 | Klawed by Kizko';
+    // window.scrollTo(0, 0);
   }, []);
 
   const openAgentModal = (agent: typeof valorantAgents[0]) => {
@@ -118,62 +119,71 @@ function ValorantPage() {
           ))}
         </div>
 
-        <div className="mt-[20%] md:mt-0 container relative z-10 text-center text-white">
+        <div className="mt-[20%] md:mt-0 w-full relative z-10 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-          >
-            <div className="mb-8">
+            className='md:flex justify-between md:border-b-2 border-primary-500/30'>
+            <div className='px-4 md:py-16'>
+              <div className="mb-8">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500/20 to-red-500/20 backdrop-blur-sm border border-pink-500/30 rounded-full px-6 py-3 mb-6">
+                  <Zap className="text-pink-400" size={20} />
+                  <span className="text-pink-400 text-xs md:text-lg font-bold">EXCLUSIVE TOURNAMENT SHOWCASE</span>
+                </div>
+                <h1 className="font-serif text-5xl md:text-7xl mb-4">
+                  <span className="bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
+                    VALORANT
+                  </span>
+                  <br />
+                  <span className="text-white">MASTERS 2025</span>
+                </h1>
               
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500/20 to-red-500/20 backdrop-blur-sm border border-pink-500/30 rounded-full px-6 py-3 mb-6">
-                <Zap className="text-pink-400" size={20} />
-                <span className="text-pink-400 font-bold">EXCLUSIVE TOURNAMENT SHOWCASE</span>
+                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                  Kizko's exclusive agent-inspired nail art collection debuts at Toronto's biggest esports event
+                </p>
               </div>
-        
-              <h1 className="font-serif text-5xl md:text-7xl mb-4">
-                <span className="bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
-                  VALORANT
-                </span>
-                <br />
-                <span className="text-white">MASTERS 2025</span>
-              </h1>
-              
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Kizko's exclusive agent-inspired nail art collection debuts at Toronto's biggest esports event
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+                <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-pink-500/30">
+                  <Calendar className="text-pink-400 mx-auto mb-3" size={32} />
+                  <h3 className="font-bold text-lg mb-2">Tournament Dates</h3>
+                  <p className="text-gray-300">June 14-15 <br/>& 20-22, 2025</p>
+                </div>
+                <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
+                  <MapPin className="text-red-400 mx-auto mb-3" size={32} />
+                  <h3 className="font-bold text-lg mb-2">Location</h3>
+                  <p className="text-gray-300">Enercare Centre <br/> Toronto, ON </p>
+                </div>
+                <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-pink-500/30">
+                  <Trophy className="text-pink-400 mx-auto mb-3" size={32} />
+                  <h3 className="font-bold text-lg mb-2">Nail Art Showcase</h3>
+                  <p className="text-gray-300">A Huge & Exclusive Agent Collections</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link to="/gallery" 
+                  className="btn border-2 border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-black px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300">
+                  View Other Collections
+                </Link>
+                <button 
+                  onClick={() => document.getElementById('agent-collection')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  View Agent Collection
+                </button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-pink-500/30">
-                <Calendar className="text-pink-400 mx-auto mb-3" size={32} />
-                <h3 className="font-bold text-lg mb-2">Tournament Dates</h3>
-                <p className="text-gray-300">March 15-17 <br/>& 20-22, 2025</p>
-              </div>
-              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
-                <MapPin className="text-red-400 mx-auto mb-3" size={32} />
-                <h3 className="font-bold text-lg mb-2">Location</h3>
-                <p className="text-gray-300">Enercare Centre <br/> Toronto, ON </p>
-              </div>
-              <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 border border-pink-500/30">
-                <Trophy className="text-pink-400 mx-auto mb-3" size={32} />
-                <h3 className="font-bold text-lg mb-2">Nail Art Showcase</h3>
-                <p className="text-gray-300">A Huge & Exclusive Agent Collections</p>
+            <div className="mt-8 md:mt-0 md:w-[40%] bg-black/30 backdrop-blur-sm md:p-6 md:border-l-2 border-primary-500/30">
+              <h2 className="font-serif text-4xl md:text-5xl text-white py-8">
+                Event Highlights
+              </h2>
+              <div className='flex justify-center items-center px-2'>
+                <XWidgetEmbed/>
               </div>
             </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/gallery" 
-                className="btn border-2 border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-black px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300">
-                View Other Collections
-              </Link>
-              <button 
-                onClick={() => document.getElementById('agent-collection')?.scrollIntoView({ behavior: 'smooth' })}
-                className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
-              >
-                View Agent Collection
-              </button>
-            </div>
+            
           </motion.div>
         </div>
       </section>
@@ -192,7 +202,7 @@ function ValorantPage() {
               Exclusive Agent Collection
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Kizko has crafted unique nail art designs inspired by various Valorant agents. 
+              Kizko has crafted unique nail art designs inspired by various VALORANT agents. 
               Each collection features a unique design showcasing the persona behind each character.
             </p>
           </motion.div>
@@ -261,65 +271,73 @@ function ValorantPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {valorantAgents.map((agent, index) => (
-              <motion.div
-                key={agent.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group cursor-pointer"
-                onClick={() => openAgentModal(agent)}>
-                <div className="relative overflow-hidden rounded-lg bg-black/30 backdrop-blur-sm border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105">
-                  <div className="aspect-square overflow-hidden">
-                    {
-                      <LoadMedia title={agent.name} url={agent.images[0]} mediaType="image"/>
-                    }
-                    {/* <video
-                            src={agent.video}
-                            onLoadedData={() => setLoaded(true)}
-                            preload="metadata"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            className={`w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110 ${
-                                loaded ? "opacity-100" : "opacity-0"
-                            }`}
-                            /> */}
-                    {/* <img
-                      src={agent.images[0]}
-                      alt={`${agent.name} nail art`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    /> */}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span 
-                        className="inline-block px-2 py-1 rounded-full text-xs font-bold"
-                        style={{ backgroundColor: agent.color }}
-                      >
-                        {agent.role}
-                      </span>
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                        <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                        <div className="w-2 h-2 bg-primary-500 rounded-full" />
+          <div className='relative'>
+            <div className="h-[90vh] overflow-y-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {valorantAgents.map((agent, index) => (
+                <motion.div
+                  key={agent.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                  onClick={() => openAgentModal(agent)}>
+                  <div className="relative overflow-hidden rounded-lg bg-black/30 backdrop-blur-sm border border-gray-700 hover:border-primary-400 transition-all duration-300 transform hover:scale-105">
+                    <div className="aspect-square overflow-hidden">
+                      {
+                        <LoadMedia title={agent.name} url={agent.images[0]} mediaType="image"/>
+                      }
+                      {/* <video
+                              src={agent.video}
+                              onLoadedData={() => setLoaded(true)}
+                              preload="metadata"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              className={`w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110 ${
+                                  loaded ? "opacity-100" : "opacity-0"
+                              }`}
+                              /> */}
+                      {/* <img
+                        src={agent.images[0]}
+                        alt={`${agent.name} nail art`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      /> */}
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className='w-full overflow-x-scroll'>
+                          {agent.tags.map((tag, index) => (
+                              <span
+                                key={index}
+                                className="inline-block mr-2 px-2 py-1 rounded-full text-xs font-bold"
+                                style={{ backgroundColor: agent.color }}>
+                                {tag}
+                              </span>
+                          ))}
+                        </div>
+                        <div className="flex gap-1">
+                          <div className="w-2 h-2 bg-primary-500 rounded-full" />
+                          <div className="w-2 h-2 bg-primary-500 rounded-full" />
+                          <div className="w-2 h-2 bg-primary-500 rounded-full" />
+                        </div>
+                      </div>
+                      <h3 className="font-bold text-xl text-white mb-1">{agent.name}</h3>
+                      {/* <p className="text-sm text-gray-300 line-clamp-2">{agent.description}</p> */}
+                    </div>
+                    <div className="absolute inset-0 bg-primary-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
+                        <ArrowRight className="text-white" size={24} />
                       </div>
                     </div>
-                    <h3 className="font-bold text-xl text-white mb-1">{agent.name}</h3>
-                    {/* <p className="text-sm text-gray-300 line-clamp-2">{agent.description}</p> */}
                   </div>
-                  <div className="absolute inset-0 bg-primary-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
-                      <ArrowRight className="text-white" size={24} />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+            <div className='absolute top-0 w-full h-[8px] bg-gradient-to-t from-transparent via-black/40 to-black/80'></div>
+            <div className='absolute bottom-0 w-full h-[8px] bg-gradient-to-t from-black/80 via-black/40 to-transparent'></div>    
           </div>
         </div>
       </section>
@@ -337,8 +355,9 @@ function ValorantPage() {
               Get Your Agent Design
             </h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Book your appointment now to get your own agent-inspired nail design. 
-              Limited slots available during the tournament period.
+              Book your collection now to get your own Agent/Weapon skin inspired nail design. 
+              Limited slots available during the tournament period. <br/>
+              <span className='text-primary-500'>Shipping to US and Canada <Sparkles className='inline align-text-top mt-1' size={16}/></span>
             </p>
             {/* <div className="flex flex-wrap justify-center gap-4">
               <Link to="/booking" className="btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105">
@@ -377,14 +396,18 @@ function ValorantPage() {
                   {/* Info Section */}
                   <div className="space-y-6">
                     <div>
-                      <div className="flex items-end gap-3 mb-4">
+                      <div className="">
                         <h2 className="font-serif text-3xl text-white">{selectedAgent.name}</h2>
-                        <span 
-                          className="inline-block px-3 py-1 rounded-full text-sm font-bold text-black"
-                          style={{ backgroundColor: selectedAgent.color }}
-                        >
-                          {selectedAgent.role}
-                        </span>
+                        {selectedAgent.tags.map((tag,index) => {
+                          console.log(index);
+                          return (
+                          <span 
+                            key={index}
+                            className="inline-block my-2 mr-2 px-3 py-1 rounded-full text-sm font-bold text-black"
+                            style={{ backgroundColor: selectedAgent.color }}>
+                              {tag}
+                          </span>
+                        )})}
                       </div>
                       {/* <p className="text-gray-300 text-lg leading-relaxed">{selectedAgent.description}</p> */}
                     </div>

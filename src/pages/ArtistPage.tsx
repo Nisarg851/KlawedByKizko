@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, MapPin, Award, Sparkles } from 'lucide-react';
+import { Instagram, MapPin, Sparkles, SendHorizonal} from 'lucide-react';
 import KizkoProfile from "/Kizko_profile.jpg";
 import InstaShowCase1 from "/insta_showcase_1.jpg";
 import InstaShowCase2 from "/insta_showcase_2.jpg";
@@ -33,7 +33,7 @@ function ArtistPage() {
 
   useEffect(() => {
     document.title = 'About Kizko | Klawed by Kizko';
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -86,12 +86,18 @@ function ArtistPage() {
                 <span className="text-neutral-200 font-medium">Award-Winning Artist</span>
               </div> */}
               <div className="flex items-center gap-2">
-                <MapPin className="text-primary-500" size={24} />
+                <MapPin className="text-primary-500" size={20} />
                 <span className="text-neutral-200 font-medium">Mississauga, ON</span>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="text-yellow-400" size={24} />
+                <Sparkles className="text-yellow-400" size={20} />
                 <span className="text-neutral-200 font-medium">Meet me at VCT Masters Toronto on June 14/15 + June 20-22</span>
+              </div>
+              <div className="flex gap-2">
+                <SendHorizonal className="text-primary-100 pt-1" size={24} />
+                <span className="w-[80%] text-neutral-200 font-medium text-justify">
+                  Feel free to message me to inquire for a set! Orders are available anytime. However, due to the high volume of orders from VCT 2025. I will be putting priority to that first.
+                </span>
               </div>
             </div>
           </motion.div>
