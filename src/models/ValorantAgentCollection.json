@@ -2,7 +2,7 @@
   {
     "id": "astra",
     "name": "Astra",
-    "role": "Controller",
+    "tags": ["Controller"],
     "description": "Galactic patterns with cosmic energy and space-themed armor",
     "color": "#9B59B6",
     "images": [
@@ -14,7 +14,7 @@
   {
     "id": "clove",
     "name": "Clove",
-    "role": "Controller",
+    "tags": ["Controller"],
     "description": "Dark urban fashion with a rebellious flair and violet accents",
     "color": "#8E44AD",
     "images": [
@@ -27,7 +27,7 @@
   {
     "id": "cypher",
     "name": "Cypher",
-    "role": "Sentinel",
+    "tags": ["Sentinel"],
     "description": "Desert-worn techwear with surveillance gadgets and sleek shades",
     "color": "#C0392B",
     "images": [
@@ -39,7 +39,7 @@
   {
     "id": "fade",
     "name": "Fade",
-    "role": "Initiator",
+    "tags": ["Initiator"],
     "description": "Shadowy Turkish motifs with eerie blue hues and spectral essence",
     "color": "#34495E",
     "images": [
@@ -51,7 +51,7 @@
   {
     "id": "gekko",
     "name": "Gekko",
-    "role": "Initiator",
+    "tags": ["Initiator"],
     "description": "Street art aesthetic with neon splashes and companion creatures",
     "color": "#2ECC71",
     "images": [
@@ -64,7 +64,7 @@
   {
     "id": "harbour",
     "name": "Harbour",
-    "role": "Controller",
+    "tags": ["Controller"],
     "description": "Mystical water-themed armor inspired by ancient Indian legends",
     "color": "#2980B9",
     "images": [
@@ -77,7 +77,7 @@
   {
     "id": "jett",
     "name": "Jett",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Agile Korean assassin with wind-blade style and sharp elegance",
     "color": "#E74C3C",
     "images": [
@@ -90,7 +90,7 @@
   {
     "id": "killjoy",
     "name": "Killjoy",
-    "role": "Sentinel",
+    "tags": ["Sentinel"],
     "description": "German tech genius with neon devices and robotic aesthetics",
     "color": "#F1C40F",
     "images": [
@@ -103,7 +103,7 @@
   {
     "id": "mystbloom",
     "name": "Mystbloom",
-    "role": "Duelist",
+    "tags": ["Weapon Skin"],
     "description": "Mystic flora-themed cloak with glowing petals and burst magic",
     "color": "#DA70D6",
     "images": [
@@ -116,7 +116,7 @@
   {
     "id": "neon",
     "name": "Neon",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Electric-blue runner with high-speed techwear and lightning boots",
     "color": "#00BFFF",
     "images": [
@@ -129,7 +129,7 @@
   {
     "id": "omen",
     "name": "Omen",
-    "role": "Controller",
+    "tags": ["Controller"],
     "description": "Cloaked shadow figure with teleportation smoke and mystery",
     "color": "#2C3E50",
     "images": [
@@ -142,7 +142,7 @@
   {
     "id": "oni",
     "name": "Oni",
-    "role": "Duelist",
+    "tags": ["Weapon Skin"],
     "description": "Demonic mask and armor inspired by Japanese folklore",
     "color": "#B22222",
     "images": [
@@ -154,7 +154,7 @@
   {
     "id": "phoenix",
     "name": "Phoenix",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Flame-infused street gear with fiery confidence and charisma",
     "color": "#FF5733",
     "images": [
@@ -166,7 +166,7 @@
   {
     "id": "raze",
     "name": "Raze",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Graffiti-covered armor with explosives and roller skates",
     "color": "#FF9F00",
     "images": [
@@ -179,7 +179,7 @@
   {
     "id": "reyna",
     "name": "Reyna",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Vampiric queen with glowing purple eyes and sinister elegance",
     "color": "#800080",
     "images": [
@@ -191,7 +191,7 @@
   {
     "id": "sage",
     "name": "Sage",
-    "role": "Sentinel",
+    "tags": ["Sentinel"],
     "description": "Graceful healer with flowing robes and ice crystal orbs",
     "color": "#2ECCFA",
     "images": [
@@ -204,7 +204,7 @@
   {
     "id": "skye",
     "name": "Skye",
-    "role": "Initiator",
+    "tags": ["Initiator"],
     "description": "Earthy survivalist with animal spirit energy and forest gear",
     "color": "#27AE60",
     "images": [
@@ -216,7 +216,7 @@
   {
     "id": "sovereign",
     "name": "Sovereign",
-    "role": "Sentinel",
+    "tags": ["Weapon Skin"],
     "description": "Royal golden armor with angelic energy and divine presence",
     "color": "#F5DEB3",
     "images": [
@@ -228,7 +228,7 @@
   {
     "id": "viper",
     "name": "Viper",
-    "role": "Controller",
+    "tags": ["Controller"],
     "description": "Toxic green suit with corrosive mist and venomous tech gear",
     "color": "#27AE60",
     "images": [
@@ -241,7 +241,7 @@
   {
     "id": "vyse",
     "name": "Vyse",
-    "role": "Initiator",
+    "tags": ["Initiator"],
     "description": "Cyber-enhanced tracker with scanning eye and precision toolkit",
     "color": "#3498DB",
     "images": [
@@ -254,7 +254,7 @@
   {
     "id": "yoru",
     "name": "Yoru",
-    "role": "Duelist",
+    "tags": ["Duelist"],
     "description": "Dimensional rift-walker with a stealth-driven, aggressive playstyle and a flair for deception",
     "color": "#0A0F2C",
     "images": [

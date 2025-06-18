@@ -66,11 +66,11 @@ function Footer() {
                   About Kizko
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/booking" className="text-neutral-200 hover:text-primary-300 transition-colors">
                   Book Now
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/inquiry" className="text-neutral-200 hover:text-primary-300 transition-colors">
                   Custom Design
@@ -78,7 +78,7 @@ function Footer() {
               </li>
               <li>
                 <Link to="/valorant-2025" className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-3 py-1 rounded-lg font-medium hover:from-yellow-500 hover:via-red-500 hover:to-pink-500 transition-all duration-300 inline-block">
-                  ⚡Valorant 2025 
+                  VALORANT 2025 
                 </Link>
               </li>
             </ul>

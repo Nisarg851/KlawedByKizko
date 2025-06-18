@@ -57,12 +57,6 @@ function GalleryPage() {
   
           if (error) throw error;
   
-          // console.log(`data for ${tier}:`, data)
-          data.forEach(item => {
-            if(item.resource_type=="video")
-              console.log("Tier:", item.tier, " resource type:", item.resource_type)
-          });
-  
           setGallery(prevData => ({
             ...prevData,
             [tier]: data,

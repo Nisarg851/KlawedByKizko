@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import KizkoProfile from "/Kizko_profile.jpg";
 import { ChevronRight } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
@@ -22,10 +23,12 @@ function SplashScreen({ onIntroComplete }) {
   const x = useMotionValue(0);
   const opacity = useTransform(x, [0, 200], [0.4, 1]);
   const isMobile = useIsMobile(); // 👈 Use custom hook
+  const location = useLocation();
 
   useEffect(() => {
     const seen = localStorage.getItem("introSeenTime");
-    if (seen && Date.now() - parseInt(seen) < 30 * 60 * 1000) {
+    // console.log("Splashscreen: ",location.pathname);
+    if ((seen && Date.now() - parseInt(seen) < 30 * 60 * 1000) || location.pathname!="/") {
       onIntroComplete(); // Skip intro
     }
   }, []);
